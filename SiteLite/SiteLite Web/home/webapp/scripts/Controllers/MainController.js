@@ -15,7 +15,7 @@ arkonLEDApp.controller('MainController',function ($scope, $http, projectsFactory
 	$scope.existingMonthlyOperationalCost = null;
 	$scope.proposedMonthlyOperationalCost = null;
 
-	projectsFactory.getProjects(function(data){
+	projectsFactory.getProjects($scope.userID, function(data){
 		$scope.projects = data;
 	});
 
