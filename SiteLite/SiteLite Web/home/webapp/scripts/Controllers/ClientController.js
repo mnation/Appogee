@@ -13,7 +13,7 @@ arkonLEDApp.controller('ClientController',function ($scope, $http, $routeParams,
 
 	$scope.toFormattedNumber = commonFactory.toFormattedNumber;
 
-	projectsFactory.getProjects(function(data){
+	projectsFactory.getProjects(27, function(data){
 		$scope.projects = data;
 		var group = _.where(data, {project_ID: Number($scope.params.projectId)});
 		if(group.length == 1){
