@@ -406,7 +406,7 @@ arkonLEDApp.controller('PrintController',function ($scope, $http, $routeParams, 
         return total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
     }
 
-    projectsFactory.getProjects(function(data){
+    projectsFactory.getProjects(27, function(data){
         $scope.projects = data;
         var group = _.where(data, {project_ID: Number($scope.params.projectId)});
         if(group.length == 1){
