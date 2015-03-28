@@ -24,7 +24,7 @@ arkonLEDApp.controller('MainController',function ($scope, $http, projectsFactory
 	};
 
 	// Infowindox on click -- Load project
-    $(document).on('click', '.infoW', function(e){
+    $(document).on('click', '.infoW', function(){
         var str = $(this).attr("id");
         var id = str.substring(10, str.length);
         angular.element('#' + id).trigger('click');
@@ -39,14 +39,15 @@ arkonLEDApp.controller('MainController',function ($scope, $http, projectsFactory
     	}
 
     	else{
-    		var value = $("#commentsArea").val();
+    		var commentsArea = $("#commentsArea"),
+                value = commentsArea.val();
     		// TODO Test
     		$http.post('iOS/Projects/updateProject.php', {
     			comments: value
     		});
     		$(this).hide();
     		$(".fa-pencil-square-o").show();
-    		$("#commentsArea").prop('disabled', true);
+    		commentsArea.prop('disabled', true);
     	}
     });
 
@@ -275,6 +276,7 @@ arkonLEDApp.controller('MainController',function ($scope, $http, projectsFactory
 				});
           		$scope.proposedOperationalCostChart.arrows[0].setValue(Number(calculationsData.proposedYearByYearPowerCost[0])/12 + Number($scope.activeView == 'standardShipping'? calculationsData.monthlyLeasePaymentStandard: calculationsData.monthlyLeasePaymentExpedited));
 
+                // Erase Amcharts Adds
 				$("#proposedPowerUsage a").remove();
 				$("#existingPowerUsage a").remove();
 				$("#proposedMaintenanceUsage a").remove();
@@ -303,7 +305,7 @@ arkonLEDApp.controller('MainController',function ($scope, $http, projectsFactory
 			// Changa arrow dinamically
 			$scope.proposedOperationalCostChart.arrows[0].setValue(Number(calculationsData.proposedYearByYearPowerCost[0])/12);
 		}
-	}
+	};
 
 	$('#expeditedShippingBt').click(function(){ 
 		// Update data to expedited shipping
@@ -364,7 +366,6 @@ arkonLEDApp.controller('MainController',function ($scope, $http, projectsFactory
 		}
 	});
 
-
     // Expand or collapse headers
     $('.page-header').click(function(){
         $(this).next().slideToggle('slow');
@@ -378,7 +379,7 @@ arkonLEDApp.controller('MainController',function ($scope, $http, projectsFactory
 		for (var i = $scope.projects.length - 1; i >= 0; i--) {
     		if($scope.projects[i].project_ID == id)
     			return $scope.projects[i]; 
-    	};
+    	}
 	};
 
 	// Load Details Pane and scroll to it 
@@ -390,7 +391,7 @@ arkonLEDApp.controller('MainController',function ($scope, $http, projectsFactory
 		projectsFactory.getProjectPoles(project.project_ID, function(data){
 			// Update project list
 			$scope.activeProject.poles = data;
-			$scope.activeProject.lightFixtureTablePoles = getLightFixturesPoles();
+
 			$scope.drawMap(data, 'poles');
 
 			// Collapse Projects panel only if it is not visible
@@ -401,63 +402,67 @@ arkonLEDApp.controller('MainController',function ($scope, $http, projectsFactory
 			if(! $('#detailsContainer').is(":visible") ){
 				$('#detailsContainer').show('slow');
 			}
-			// Oper details panel if it is not visible
+			// Open details panel if it is not visible
 			if(! $('#detailMiddleContainer').is(":visible") ){
 				$("#detailsPanelHeader").trigger('click');
 			}
-		});
 
-		// Update projects stats
-		projectsFactory.getProjectStats(project.project_ID, function(data){
-			// Clone original data to avoid changes to the original source
-			calculationsData = $.extend(true, {}, data);
-			
-			$scope.activeProject.calculationsData = data;
-			commonFactory.updateScope($scope);
-			$scope.activeProject.stats = commonFactory.calculateChartPoints(calculationsData);
-			// TODO:Check with Arkon this field
-			$scope.activeProject.totalSavings = calculateTotalSavings(data);
+            // Update projects stats
+            projectsFactory.getProjectStats(project.project_ID, function(data){
 
-			// Assign value for UI use
-			$scope.activeProject.calculationsData.existingMonthlyPowerCost = commonFactory.toFormattedNumber(Number(data.existingYearByYearPowerCost[0])/12); 
-            
-			$scope.activeProject.calculationsData.proposedMonthlyPowerCost = commonFactory.toFormattedNumber(Number(data.proposedYearByYearPowerCost[0])/12); 
-            
-        	$scope.activeProject.calculationsData.existingMonthlyPowerUsage = commonFactory.toFormattedNumber(((Number(data.existingYearByYearPowerCost[0])/12).toFixed(2)/Number($scope.activeProject.power_cost_per_kWh)));
-            
-        	$scope.activeProject.calculationsData.proposedMonthlyPowerUsage = commonFactory.toFormattedNumber(((Number(data.proposedYearByYearPowerCost[0])/12)/Number($scope.activeProject.power_cost_per_kWh)));
-            
-        	$scope.activeProject.calculationsData.powerSavings = commonFactory.toFormattedNumber(Number(data.existingYearByYearPowerCost[0]) - Number(data.proposedYearByYearPowerCost[0]));
-			
-			$scope.activeProject.calculationsData.totalPowerSavings = commonFactory.toFormattedNumber((Number(data.existingYearByYearPowerCost[5]) - Number(data.proposedYearByYearPowerCost[4])) * 10);
-            
-        	$scope.activeProject.calculationsData.immediateMonthlySavingsExpedited = commonFactory.toFormattedNumber(
-        		Number(data.existingYearlyMaintenanceCost)/12 + 
-        		Number(data.existingYearByYearPowerCost[0])/12 - 
-        		Number(data.monthlyLeasePaymentExpedited) - Number(data.proposedYearByYearPowerCost[0])/12
-        	);
-        	$scope.activeProject.calculationsData.immediateMonthlySavingsStandard = commonFactory.toFormattedNumber(
-        		Number(data.existingYearlyMaintenanceCost)/12 + 
-        		Number(data.existingYearByYearPowerCost[0])/12 - 
-        		Number(data.monthlyLeasePaymentStandard) - Number(data.proposedYearByYearPowerCost[0])/12
-        	);
-        	$scope.activeProject.calculationsData.monthlyLeasePaymentStandard = commonFactory.toFormattedNumber(data.monthlyLeasePaymentStandard);
-			$scope.activeProject.calculationsData.monthlyLeasePaymentExpedited = commonFactory.toFormattedNumber(data.monthlyLeasePaymentExpedited);
-			$scope.activeProject.calculationsData.existingMonthlyMaintenanceCost = commonFactory.toFormattedNumber(Number(data.existingYearlyMaintenanceCost)/12);
-			$scope.activeProject.calculationsData.existingYearlyMaintenanceCost = commonFactory.toFormattedNumber(Number(data.existingYearlyMaintenanceCost));
-			
-			$scope.activeProject.calculationsData.existingTotalMaintenanceCost = commonFactory.toFormattedNumber(Number((data.existingYearlyMaintenanceCost)*10));
-			
-			$scope.activeProject.calculationsData.stdShip = commonFactory.toFormattedNumber(calculationsData.standardShippingOnly);
-			$scope.activeProject.calculationsData.expShip = commonFactory.toFormattedNumber(calculationsData.expeditedShippingOnly);
+                // Clone original data to avoid changes to the original source
+                calculationsData = $.extend(true, {}, data);
 
-			$scope.activeProject.calculationsData.operationalSavingsLongTerm = commonFactory.toFormattedNumber(
-				Number(calculationsData.existingYearlyMaintenanceCost)/12 + 
-	    		Number(calculationsData.existingYearByYearPowerCost[0])/12 - Number(data.proposedYearByYearPowerCost[0])/12
-			);
-			
-			$scope.activeProject.lightFixtureTotalWattage = commonFactory.toFormattedNumber(Number(calculationsData.totalLEDwattage/1000));
-		
+                $scope.activeProject.lightFixtureTablePoles = getLightFixturesPoles();
+
+                $scope.activeProject.calculationsData = data;
+                commonFactory.updateScope($scope);
+                $scope.activeProject.stats = commonFactory.calculateChartPoints(calculationsData);
+                $scope.activeProject.totalSavings = calculateTotalSavings(data);
+
+                // Assign value for UI use
+                $scope.activeProject.calculationsData.existingMonthlyPowerCost = commonFactory.toFormattedNumber(Number(data.existingYearByYearPowerCost[0])/12);
+
+                $scope.activeProject.calculationsData.proposedMonthlyPowerCost = commonFactory.toFormattedNumber(Number(data.proposedYearByYearPowerCost[0])/12);
+
+                $scope.activeProject.calculationsData.existingMonthlyPowerUsage = commonFactory.toFormattedNumber(((Number(data.existingYearByYearPowerCost[0])/12).toFixed(2)/Number($scope.activeProject.power_cost_per_kWh)));
+
+                $scope.activeProject.calculationsData.proposedMonthlyPowerUsage = commonFactory.toFormattedNumber(((Number(data.proposedYearByYearPowerCost[0])/12)/Number($scope.activeProject.power_cost_per_kWh)));
+
+                $scope.activeProject.calculationsData.powerSavings = commonFactory.toFormattedNumber(Number(data.existingYearByYearPowerCost[0]) - Number(data.proposedYearByYearPowerCost[0]));
+
+                $scope.activeProject.calculationsData.totalPowerSavings = commonFactory.toFormattedNumber((Number(data.existingYearByYearPowerCost[5]) - Number(data.proposedYearByYearPowerCost[4])) * 10);
+
+                $scope.activeProject.calculationsData.immediateMonthlySavingsExpedited = commonFactory.toFormattedNumber(
+                    Number(data.existingYearlyMaintenanceCost)/12 +
+                    Number(data.existingYearByYearPowerCost[0])/12 -
+                    Number(data.monthlyLeasePaymentExpedited) - Number(data.proposedYearByYearPowerCost[0])/12
+                );
+                $scope.activeProject.calculationsData.immediateMonthlySavingsStandard = commonFactory.toFormattedNumber(
+                    Number(data.existingYearlyMaintenanceCost)/12 +
+                    Number(data.existingYearByYearPowerCost[0])/12 -
+                    Number(data.monthlyLeasePaymentStandard) - Number(data.proposedYearByYearPowerCost[0])/12
+                );
+                $scope.activeProject.calculationsData.monthlyLeasePaymentStandard = commonFactory.toFormattedNumber(data.monthlyLeasePaymentStandard);
+                $scope.activeProject.calculationsData.monthlyLeasePaymentExpedited = commonFactory.toFormattedNumber(data.monthlyLeasePaymentExpedited);
+                $scope.activeProject.calculationsData.existingMonthlyMaintenanceCost = commonFactory.toFormattedNumber(Number(data.existingYearlyMaintenanceCost)/12);
+                $scope.activeProject.calculationsData.existingYearlyMaintenanceCost = commonFactory.toFormattedNumber(Number(data.existingYearlyMaintenanceCost));
+
+                $scope.activeProject.calculationsData.existingTotalMaintenanceCost = commonFactory.toFormattedNumber(Number((data.existingYearlyMaintenanceCost)*10));
+
+                $scope.activeProject.calculationsData.stdShip = commonFactory.toFormattedNumber(calculationsData.standardShippingOnly);
+                $scope.activeProject.calculationsData.expShip = commonFactory.toFormattedNumber(calculationsData.expeditedShippingOnly);
+
+                $scope.activeProject.calculationsData.operationalSavingsLongTerm = commonFactory.toFormattedNumber(
+                    Number(calculationsData.existingYearlyMaintenanceCost)/12 +
+                    Number(calculationsData.existingYearByYearPowerCost[0])/12 - Number(data.proposedYearByYearPowerCost[0])/12
+                );
+
+                $scope.activeProject.lightFixtureTotalWattage = commonFactory.toFormattedNumber(Number(calculationsData.totalLEDwattage/1000));
+
+            });
+
+
 		});
 
 		$('#poBnt').trigger('click');
@@ -469,8 +474,8 @@ arkonLEDApp.controller('MainController',function ($scope, $http, projectsFactory
 				google.maps.event.trigger(markers[i].marker, 'click');
 				break;
 			}
-		};
-	}
+		}
+	};
 
 	$scope.evenTableHeights = function(){
 		var height2 =  (_.size($scope.activeProject.lightFixtureTablePoles)+1)*37 + 60;
@@ -481,23 +486,23 @@ arkonLEDApp.controller('MainController',function ($scope, $http, projectsFactory
 		}else if (height2 > height1) {
 			$("#proposedLightFixtureTable").height(height2);
 			$("#existingLightFixtureTable").height(height2);
-		};
+		}
        
         $('#progressModal').modal("hide");  
-	}
+	};
 
 	$scope.initTable = function(){
 		$('#projectsTable').dataTable({
 			"order": [[ 1, "desc" ]],
-			"drawCallback": function( settings ) {
+			"drawCallback": function() {
 			    var api = this.api();
-			    var projectIds = new Array();
+			    var projectIds = [];
 			    // Rows on the screen 
 			    var tableData = api.rows( {page:'current'} ).data();
 			    // Get Project Ids
 			    for (var i = 0; i < tableData.length; i++) {
 			        projectIds[i] = tableData[i][1];
-			    };
+			    }
 			    // Draw filtered projects in the map
 			    $scope.drawMap(projectIds, 'projects');
 			}
@@ -522,13 +527,13 @@ arkonLEDApp.controller('MainController',function ($scope, $http, projectsFactory
 	$scope.drawMap = function( list, type) {
 		deleteAllMarkers();
 		if (type == 'projects' ){
-			activeIds = new Array();
+			activeIds = [];
 			for (var i = 0; i < list.length; i++) {
 				activeIds[i] = Number(list[i].substring(list[i].indexOf(">") + 1,list[i].lastIndexOf("<")));
-			};
+			}
 			var projects = $scope.projects;
-			LatLngList = new Array();
-			indexes = new Array();
+			LatLngList = [];
+			indexes = [];
 
 			for (var j = 0; j < activeIds.length; j++) {
 				for (var i = 0; i < projects.length; i++) {
@@ -553,7 +558,7 @@ arkonLEDApp.controller('MainController',function ($scope, $http, projectsFactory
 			$("#map-canvas").css("position","fixed");
 		}
 		else if (type == 'poles'){
-			LatLngList = new Array();
+			LatLngList = [];
 
 			for (var j = 0; j < list.length; j++) {
 				LatLngList.push(new google.maps.LatLng(list[j].poleLat, list[j].poleLong));
@@ -605,20 +610,18 @@ arkonLEDApp.controller('MainController',function ($scope, $http, projectsFactory
 		});
 
 	  	iterator++;
-	};
+	}
 
 	function deleteAllMarkers(){
 		for (var i = 0; i < markers.length; i++) {
 			markers[i].marker.setMap(null);
-		};
-		markers = new Array();
-	};
+		}
+		markers = [];
+	}
 
 	// Update map with new pins 
 	function getLightFixturesPoles() {
 		var data = $scope.activeProject.poles;
-        // Clone original data to avoid changes to the original source
-        calculationsData = $.extend(true, {}, data);
 		var totalLightFixtureQuantity = 0;
 		var totalLightFixtureUnitCost = 0.0;
 		var totalLightFixtureSaleCost = 0.0;
@@ -635,10 +638,10 @@ arkonLEDApp.controller('MainController',function ($scope, $http, projectsFactory
 		var numExistingFeature = 0, existingFeatureDesc ='';
 
 		// Prepare data for Project Overview  Existing Light fixtures table
-		var existingGroupedPoles = new Array(); 
+		var existingGroupedPoles = []; 
 
 		// Prepare data for Project Overview Light fixtures table
-		var groupedPoles = new Array(); 
+		var groupedPoles = []; 
 
         for (i = 0; i < data.length; i++) { 
         	/********* Proposed Stats ************/
@@ -670,7 +673,7 @@ arkonLEDApp.controller('MainController',function ($scope, $http, projectsFactory
 						saleCost = Number(group[j].LEDunitCost) * shipping * priceMarkup;
 						
 						
-                    };
+                    }
                     var auxPole = _.pick(group[0], 'LEDpartNumber', 'LEDdesc', 'LEDunitCost', 'numOfHeadsProposed');
                     auxPole['numOfHeadsProposed'] = totalQuantity; 
                     auxPole['LEDunitCost'] = unitCost.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); 
@@ -702,14 +705,14 @@ arkonLEDApp.controller('MainController',function ($scope, $http, projectsFactory
                         totalNumOfHeads += Number(existingGroup[j].numOfHeads);
 						existingWatts = Number(existingGroup[j].legWattage);
 						
-                    };
+                    }
                     var aux = _.pick(existingGroup[0], 'numOfHeads', 'bulbDesc', 'bulbID','poleExist','legWattage');
                     aux['numOfHeads'] = totalNumOfHeads;
 					aux['legWattage'] = existingWatts;
                     existingGroupedPoles.push(aux);
                 }
             }
-        };
+        }
 
 
         $scope.activeProject.existingLightFixtureTablePoles = existingGroupedPoles;
@@ -725,13 +728,13 @@ arkonLEDApp.controller('MainController',function ($scope, $http, projectsFactory
         // <td>{{ pole.existingFeatureDesc }}</td>
 
 		return groupedPoles;
-	};
+	}
 
 	function calculateTotalSavings(data){
 		var total = 0;
 		for (var i = 0; i < data.yearByYearSavings.length; i++) {
 			total += Number(data.yearByYearSavings[1]);
-		};
+		}
 		return total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 	}
 });
