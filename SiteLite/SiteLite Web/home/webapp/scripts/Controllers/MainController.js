@@ -647,7 +647,7 @@ arkonLEDApp.controller('MainController',function ($scope, $http, projectsFactory
         	/********* Proposed Stats ************/
         	totalLightFixtureQuantity += Number(data[i].numOfHeadsProposed);
         	totalLightFixtureUnitCost += Number(data[i].LEDunitCost) * Number(data[i].numOfHeadsProposed);
-			totalLightFixtureSaleCost += Number(data[i].LEDunitCost) * Number(data[i].numOfHeadsProposed) * priceMarkup;
+			totalLightFixtureSaleCost += Number(data[i].LEDunitCost) * Number(data[i].numOfHeadsProposed) * shipping *priceMarkup;
 			
 			
 
