@@ -481,6 +481,10 @@ arkonLEDApp.controller('ClientController',function ($scope, $http, $routeParams,
 			//  Fit bounds into the map
 			$scope.map.fitBounds (bounds);
 			$("#map-canvas").css("position","fixed");
+
+            if (LatLngList.length == 1){
+                $scope.map.setZoom(20);
+            }
 		}
 	};
 
