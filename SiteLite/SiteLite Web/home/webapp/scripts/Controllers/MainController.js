@@ -564,17 +564,22 @@ arkonLEDApp.controller('MainController',function ($scope, $http, projectsFactory
 				LatLngList.push(new google.maps.LatLng(list[j].poleLat, list[j].poleLong));
 			}
 			iterator = 0;
-			//  Create a new viewpoint bound
-			var bounds = new google.maps.LatLngBounds();
-			// Increase the bounds to take every point
-			for (var i = 0; i < LatLngList.length; i++) {
-			  	setTimeout(function() {
-			      	addMarker(list, "poles");
-			    }, i * 150);
-			  	bounds.extend (LatLngList[i]);
-			}
-			//  Fit bounds into the map
-			$scope.map.fitBounds (bounds);
+
+            //  Create a new viewpoint bound
+            var bounds = new google.maps.LatLngBounds();
+            // Increase the bounds to take every point
+            for (var i = 0; i < LatLngList.length; i++) {
+                setTimeout(function () {
+                    addMarker(list, "poles");
+                }, i * 150);
+                bounds.extend(LatLngList[i]);
+            }
+            //  Fit bounds into the map
+            $scope.map.fitBounds(bounds);
+
+            if (LatLngList.length == 1){
+                $scope.map.setZoom(20);
+            }
 		}
 	};
 
