@@ -450,9 +450,6 @@ arkonLEDApp.controller('MainController',function ($scope, $http, projectsFactory
 
                 $scope.activeProject.calculationsData.existingTotalMaintenanceCost = commonFactory.toFormattedNumber(Number((data.existingYearlyMaintenanceCost)*10));
 
-                $scope.activeProject.calculationsData.stdShip = commonFactory.toFormattedNumber(calculationsData.standardShippingOnly);
-                $scope.activeProject.calculationsData.expShip = commonFactory.toFormattedNumber(calculationsData.expeditedShippingOnly);
-
                 $scope.activeProject.calculationsData.operationalSavingsLongTerm = commonFactory.toFormattedNumber(
                     Number(calculationsData.existingYearlyMaintenanceCost)/12 +
                     Number(calculationsData.existingYearByYearPowerCost[0])/12 - Number(data.proposedYearByYearPowerCost[0])/12
