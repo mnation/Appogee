@@ -15,7 +15,8 @@
         <i class="fa fa-user fa-fw"></i>&nbsp; Welcome, {{ firstName }} {{ lastName }}!&nbsp;&nbsp;<i class="fa fa-caret-down"></i> <span> &nbsp; &nbsp; &nbsp;</span>
       </a>
 
-      <ul class="dropdown-menu dropdown-user">
+		<ul class="dropdown-menu dropdown-user">
+			<li style="padding:3px 15px; cursor:pointer;"><a href="/../phpmyadmin"><i class="fa fa-gear fa-fw"></i>Admin</a></li>
           <li ng-click="logout()" style="padding:3px 15px; cursor:pointer;"><i class="fa fa-sign-out fa-fw"></i> Logout</li>
       </ul>
     </li>
