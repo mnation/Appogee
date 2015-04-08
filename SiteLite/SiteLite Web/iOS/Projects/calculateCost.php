@@ -35,8 +35,9 @@
     
     
     //Get Project Info **************************************************************************************************
-    $strSQL = "SELECT PR.lot_area, PR.power_cost_per_kWH, PR.date_of_service, PR.state FROM Project PR WHERE PR.project_ID = ?";
+    $strSQL = "SELECT PR.lot_area, PR.power_cost_per_kWH, PR.date_of_service, PR.state, PR.project_usage_hours FROM Project PR WHERE PR.project_ID = ?";
     
+
     $strSQLParams = $_GET['projectID'];
     
     
@@ -59,7 +60,10 @@
         }
         
         /* bind result variables */
-        $stmt->bind_result($lotAreaBind, $powerCostPerKWHBind, $dateOfServiceBind, $stateBind);
+        $stmt->bind_result($lotAreaBind, $powerCostPerKWHBind, $dateOfServiceBind, $stateBind, $prjUseHrsBind);
+		
+		
+		
         
         if(!$projectInfo = $stmt->fetch())
         {
@@ -215,14 +219,9 @@
     $salesTaxStandard = 0;
     if($stateBind == "FL")
     {
-        if(($response["productCostStandard"] + $response["installationCost"]) < $costs["tax_rate_cutoff"])
-        {
-            $salesTaxStandard = $costs["low_tax_rate"] * $response["productCostStandard"];
-        }
-        else
-        {
-            $salesTaxStandard = $costs["county_sur_tax"] + $costs["high_tax_rate"] * ($response["productCostStandard"] + $costs["tax_rate_cutoff"]);
-        }
+      
+            $salesTaxStandard = $costs["high_tax_rate"] * $response["productCostStandard"];
+       
     }
     else
     {
@@ -234,14 +233,10 @@
     $salesTaxExpedited = 0;
     if($stateBind == "FL")
     {
-        if(($response["productCostExpedited"] + $response["installationCost"]) < $costs["tax_rate_cutoff"])
-        {
-            $salesTaxExpedited = $costs["low_tax_rate"] * $response["productCostExpedited"];
-        }
-        else
-        {
-            $salesTaxExpedited = $costs["county_sur_tax"] + $costs["high_tax_rate"] * ($response["productCostExpedited"] - $costs["tax_rate_cutoff"]);
-        }
+        
+            $salesTaxExpedited = $costs["high_tax_rate"] * $response["productCostExpedited"];
+   
+       
     }
     else
     {
@@ -273,17 +268,19 @@
     $arrayExistingYearCost = array();
     for($year = 0; $year <= 9; $year++)
     {
-        $yearCost = $sumLegacyWattage * ((($powerCostPerKWHBind/100 + ($costs["power_cost_increase"] * ($year))) * $costs["usage_hours"]) / 1000);
+        $yearCost = $sumLegacyWattage * ((($powerCostPerKWHBind/100 + ($costs["power_cost_increase"] * ($year))) * $prjUseHrsBind * 365) / 1000);
         $arrayExistingYearCost[$year] = number_format($yearCost, 2, '.', '');
     }
     $response["existingYearByYearPowerCost"] = $arrayExistingYearCost;
+
+
     //Existing Year-by-Year Power Cost END ******************************************************************
     
     //Proposed Year-by-Year Power Cost **********************************************************************
     $arrayProposedYearCost = array();
     for($year = 0; $year <= 9; $year++)
     {
-        $yearCost = $sumLEDWattage * ((($powerCostPerKWHBind/100 + ($costs["power_cost_increase"] * $year))  * $costs["usage_hours"]) / 1000);
+        $yearCost = $sumLEDWattage * ((($powerCostPerKWHBind/100 + ($costs["power_cost_increase"] * $year))  * $prjUseHrsBind * 365) / 1000);
         $arrayProposedYearCost[$year] = number_format($yearCost, 2, '.', '');
     }
     $response["proposedYearByYearPowerCost"] = $arrayProposedYearCost;
@@ -320,13 +317,13 @@
 
     //Existing Monthly kg Coal Usage ****************************************************************************
     
-   $response["existingKgCoal"] = $sumLegacyWattage * $costs["usage_hours"] * 0.0001475 / 12 * 2.2; 
+   $response["existingKgCoal"] = $sumLegacyWattage * $prjUseHrsBind * 365 * 0.0001475 / 12 * 2.2; 
 
     //Existing Monthly kg Coal Usage END ************************************************************************
     
     //Proposed Monthly kg Coal Usage ****************************************************************************
     
-   $response["proposedKgCoal"] = $sumLEDWattage * $costs["usage_hours"] * 0.0001475 / 12 * 2.2; 
+   $response["proposedKgCoal"] = $sumLEDWattage * $prjUseHrsBind * 365 * 0.0001475 / 12 * 2.2; 
 
     //Proposed Monthly kg Coal Usage END ************************************************************************
 
