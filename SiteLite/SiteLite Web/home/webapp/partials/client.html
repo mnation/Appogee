@@ -107,11 +107,12 @@
                   <div class="panel-body">
                     <div class="table-responsive" id="proposedLightFixtureTable" >
                       <table class="table table-hover" >
-                        <thead> <tr><th>Part No.</th><th>Description</th><th ng-if="userType==2">Buy</th><th ng-if="userType==2">Sell</th><th>Qty</th></tr> </thead>
+                        <thead> <tr><th>Part No.</th><th>Description</th><th>Qty</th></tr> </thead>
                         <tbody>
                           <tr ng-repeat="pole in activeProject.lightFixtureTablePoles" on-finish-render="evenTableHeights()">  
                             <td>{{ pole.LEDpartNumber }}</td>
                             <td>{{ pole.LEDdesc }}</td>
+					
                             
                             <td>{{ pole.numOfHeadsProposed}}</td>
                           </tr>
@@ -119,7 +120,7 @@
                             
                             <td><b>Totals</b></td>
 							  <td>{{ activeProject.lightFixtureTotalWattage }} kW</td>
-                            
+							                  
                             <td>{{ activeProject.lightFixtureTotalQuantity }} </td>
                           </tr>
                         </tbody>
@@ -367,7 +368,7 @@
                       <div class="list-group">
                         <a class="list-group-item">Product<span class="pull-right text-muted small"><em>${{ toFormattedNumber(activeProject.calculationsData.productCostStandard) }}</em></span> </a>
                         <a class="list-group-item">Installation<span class="pull-right text-muted small"><em>${{ toFormattedNumber(activeProject.calculationsData.installationCost) }}</em></span> </a>
-                        <a class="list-group-item">Sales Tax<span class="pull-right text-muted small"><em>${{ toFormattedNumber(activeProject.calculationsData.salesTaxStandard) }}</em></span> </a>
+                        <a class="list-group-item">State Sales Tax*<span class="pull-right text-muted small"><em>${{ toFormattedNumber(activeProject.calculationsData.salesTaxStandard) }}</em></span> </a>
                         <a class="list-group-item total"><b>Total Costs</b><span class="pull-right"><em><b>${{ toFormattedNumber(activeProject.calculationsData.totalCostStandard) }}</b></em></span></a>
                       </div>
                     </div>
@@ -375,7 +376,7 @@
                       <div class="list-group">
                         <a class="list-group-item">Product<span class="pull-right text-muted small"><em>${{ toFormattedNumber(activeProject.calculationsData.productCostExpedited) }}</em></span> </a>
                         <a class="list-group-item">Installation<span class="pull-right text-muted small"><em>${{ toFormattedNumber(activeProject.calculationsData.installationCost) }}</em></span> </a>
-                        <a class="list-group-item">Sales Tax<span class="pull-right text-muted small"><em>${{ toFormattedNumber(activeProject.calculationsData.salesTaxExpedited) }}</em></span> </a>
+                        <a class="list-group-item">State Sales Tax*<span class="pull-right text-muted small"><em>${{ toFormattedNumber(activeProject.calculationsData.salesTaxExpedited) }}</em></span> </a>
                         <a class="list-group-item total"><b>Total Costs</b><span class="pull-right"><em><b>${{ toFormattedNumber(activeProject.calculationsData.totalCostExpedited) }}</b></em></span></a>
                       </div>
                     </div>

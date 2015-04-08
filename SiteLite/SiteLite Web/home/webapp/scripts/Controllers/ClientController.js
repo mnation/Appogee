@@ -64,7 +64,7 @@ arkonLEDApp.controller('ClientController',function ($scope, $http, $routeParams,
 					labels: ['Maintenance Savings', 'Power Savings', 'LED Finance Payments', 'LED Power Costs'],
 					lineColors: ["#009900","#00CC00","#CC0000","#990000"],
 					pointSize: 2,
-					hideHover: '',
+					hideHover: 'always',
 					resize: true,
 					behaveLikeLine: true,
 					smooth: false,
@@ -410,7 +410,8 @@ arkonLEDApp.controller('ClientController',function ($scope, $http, $routeParams,
 			$scope.activeProject.calculationsData.existingMonthlyMaintenanceCost = commonFactory.toFormattedNumber(Number(data.existingYearlyMaintenanceCost)/12);
 			$scope.activeProject.calculationsData.existingYearlyMaintenanceCost = commonFactory.toFormattedNumber(Number(data.existingYearlyMaintenanceCost));
 			
-			$scope.activeProject.calculationsData.existingTotalMaintenanceCost = commonFactory.toFormattedNumber(Number((data.existingYearlyMaintenanceCost)*10));
+			$scope.activeProject.calculationsData.existingTotalMaintenanceCost = commonFactory.toFormattedNumber(Number(calculationsData.existingYearlyMaintenanceCost)*10);
+			
 
 			$scope.activeProject.calculationsData.operationalSavingsLongTerm = commonFactory.toFormattedNumber(
 				Number(calculationsData.existingYearlyMaintenanceCost)/12 + 
