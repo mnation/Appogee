@@ -34,4 +34,6 @@
 @property (strong, nonatomic) NSString *strProjectTitle;
 @property (strong, nonatomic) NSString *strCostPerKWH;
 
+
+
 @end

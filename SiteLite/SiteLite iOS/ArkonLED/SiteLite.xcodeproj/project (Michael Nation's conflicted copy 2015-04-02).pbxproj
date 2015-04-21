@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FB0092A91AB62F400011B036 /* MarkerInfoDelegateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0092A81AB62F400011B036 /* MarkerInfoDelegateTest.m */; };
-		FB6143D21AC20AD60055AD5C /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB6143D11AC20AD60055AD5C /* GoogleMaps.framework */; };
-		FB6143D41AC20AE10055AD5C /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FB6143D31AC20AE10055AD5C /* GoogleMaps.bundle */; };
 		FB61B9B119BCD8DF00B78993 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB61B9B019BCD8DF00B78993 /* Foundation.framework */; };
 		FB61B9B319BCD8DF00B78993 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB61B9B219BCD8DF00B78993 /* CoreGraphics.framework */; };
 		FB61B9B519BCD8DF00B78993 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB61B9B419BCD8DF00B78993 /* UIKit.framework */; };
@@ -22,14 +19,14 @@
 		FB61B9D419BCD8DF00B78993 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB61B9B019BCD8DF00B78993 /* Foundation.framework */; };
 		FB61B9D519BCD8DF00B78993 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB61B9B419BCD8DF00B78993 /* UIKit.framework */; };
 		FB61B9DD19BCD8DF00B78993 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FB61B9DB19BCD8DF00B78993 /* InfoPlist.strings */; };
+		FB61B9DF19BCD8DF00B78993 /* ArkonLEDTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FB61B9DE19BCD8DF00B78993 /* ArkonLEDTests.m */; };
 		FB61B9EA19BD097900B78993 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = FB61B9E919BD097900B78993 /* Login.m */; };
 		FB61B9EE19BD0AAF00B78993 /* ProjectsList.m in Sources */ = {isa = PBXBuildFile; fileRef = FB61B9ED19BD0AAF00B78993 /* ProjectsList.m */; };
 		FB65D24319C4CB6E005626F1 /* CalculateArea.m in Sources */ = {isa = PBXBuildFile; fileRef = FB65D24219C4CB6E005626F1 /* CalculateArea.m */; };
 		FB75F50019CDBD1800E09DEF /* machine2.png in Resources */ = {isa = PBXBuildFile; fileRef = FB75F4FF19CDBD1800E09DEF /* machine2.png */; };
 		FB75F50619CF601500E09DEF /* MapDetailsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB75F50519CF601500E09DEF /* MapDetailsDelegate.m */; };
-		FB7D593B1AA12DE500F25669 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB7D593A1AA12DE500F25669 /* libOCMock.a */; };
+		FB7AFC0219D0CF20006E2D88 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB7AFC0119D0CF20006E2D88 /* GoogleMaps.framework */; };
 		FB841FB81A0437C700668BCA /* loginBackgroundBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = FB841FB71A0437C700668BCA /* loginBackgroundBlack.png */; };
-		FB9341FE1A94189A00B2BA1D /* BulbNamesDataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9341FD1A94189A00B2BA1D /* BulbNamesDataTest.m */; };
 		FB9A683C1A018F3900E9CE0C /* CreateNewAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9A683B1A018F3900E9CE0C /* CreateNewAccount.m */; };
 		FB9B8E3C19E342D3006F376F /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9B8E3B19E342D3006F376F /* NSData+Base64.m */; };
 		FB9DB3ED19BE5F8F00329D67 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB9DB3EC19BE5F8F00329D67 /* AVFoundation.framework */; };
@@ -45,6 +42,7 @@
 		FB9DB40119BE620600329D67 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB9DB40019BE620600329D67 /* QuartzCore.framework */; };
 		FB9DB40319BE624F00329D67 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB9DB40219BE624F00329D67 /* SystemConfiguration.framework */; };
 		FB9DB40B19BE6B4A00329D67 /* Map.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9DB40A19BE6B4A00329D67 /* Map.m */; };
+		FB9DB40F19BE70AD00329D67 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FB9DB40E19BE70AD00329D67 /* GoogleMaps.bundle */; };
 		FBA1938219DB622F00608290 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA1937C19DB622F00608290 /* SSKeychain.m */; };
 		FBA1938319DB622F00608290 /* SSKeychain.strings in Resources */ = {isa = PBXBuildFile; fileRef = FBA1937D19DB622F00608290 /* SSKeychain.strings */; };
 		FBA1938419DB622F00608290 /* SSKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA1937F19DB622F00608290 /* SSKeychainQuery.m */; };
@@ -54,17 +52,10 @@
 		FBA7FD511A16C2DF00B9BB55 /* mail.png in Resources */ = {isa = PBXBuildFile; fileRef = FBA7FD501A16C2DF00B9BB55 /* mail.png */; };
 		FBA7FD541A16D7B700B9BB55 /* Presentation.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA7FD531A16D7B700B9BB55 /* Presentation.m */; };
 		FBA9F59319C24E8E009CED1D /* StaticDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA9F59219C24E8E009CED1D /* StaticDataTableViewController.m */; };
-		FBABD3191AC45F1600B2BA43 /* settingsBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = FBABD3171AC45F1600B2BA43 /* settingsBlue.png */; };
-		FBABD31A1AC45F1600B2BA43 /* settingsWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = FBABD3181AC45F1600B2BA43 /* settingsWhite.png */; };
+		FBBA75C81A03FA6D00FA55FE /* maps.png in Resources */ = {isa = PBXBuildFile; fileRef = FBBA75C71A03FA6D00FA55FE /* maps.png */; };
 		FBBA75CA1A040E1E00FA55FE /* presentation.png in Resources */ = {isa = PBXBuildFile; fileRef = FBBA75C91A040E1E00FA55FE /* presentation.png */; };
 		FBBDD7BA19BFC544005427BD /* MarkerInfoDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBDD7B919BFC544005427BD /* MarkerInfoDelegate.m */; };
-		FBD7C64B1A8595850034E68D /* BulbNamesData.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD7C64A1A8595850034E68D /* BulbNamesData.m */; };
-		FBE475D61AD1D107003DD74A /* Map.png in Resources */ = {isa = PBXBuildFile; fileRef = FBE475D51AD1D107003DD74A /* Map.png */; };
-		FBE475D81AD1D1F4003DD74A /* presentation3.png in Resources */ = {isa = PBXBuildFile; fileRef = FBE475D71AD1D1F4003DD74A /* presentation3.png */; };
-		FBE475DE1AD1E0EB003DD74A /* mail3.png in Resources */ = {isa = PBXBuildFile; fileRef = FBE475DD1AD1E0EB003DD74A /* mail3.png */; };
 		FBE739611A02F4BF00AA1154 /* ArkonLED_Logo_Black_HighRes.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FBE739601A02F4BF00AA1154 /* ArkonLED_Logo_Black_HighRes.jpg */; };
-		FBFBE8C81A9FD1F600F698F4 /* LEDFixturesData.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFBE8C71A9FD1F600F698F4 /* LEDFixturesData.m */; };
-		FBFBE8CB1A9FD7FE00F698F4 /* LEDFixturesDataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFBE8CA1A9FD7FE00F698F4 /* LEDFixturesDataTest.m */; };
 		FBFC06251A06A31B00007BBA /* LightPoleLargeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFC06241A06A31B00007BBA /* LightPoleLargeImage.m */; };
 /* End PBXBuildFile section */
 
@@ -79,9 +70,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		FB0092A81AB62F400011B036 /* MarkerInfoDelegateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkerInfoDelegateTest.m; sourceTree = "<group>"; };
-		FB6143D11AC20AD60055AD5C /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
-		FB6143D31AC20AE10055AD5C /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleMaps.bundle; sourceTree = "<group>"; };
 		FB61B9AD19BCD8DF00B78993 /* SiteLite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SiteLite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB61B9B019BCD8DF00B78993 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FB61B9B219BCD8DF00B78993 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -98,6 +86,7 @@
 		FB61B9D119BCD8DF00B78993 /* SiteLiteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SiteLiteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB61B9DA19BCD8DF00B78993 /* SiteLiteTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SiteLiteTests-Info.plist"; sourceTree = "<group>"; };
 		FB61B9DC19BCD8DF00B78993 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FB61B9DE19BCD8DF00B78993 /* ArkonLEDTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArkonLEDTests.m; sourceTree = "<group>"; };
 		FB61B9E819BD097900B78993 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
 		FB61B9E919BD097900B78993 /* Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login.m; sourceTree = "<group>"; };
 		FB61B9EC19BD0AAF00B78993 /* ProjectsList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectsList.h; sourceTree = "<group>"; };
@@ -107,18 +96,8 @@
 		FB75F4FF19CDBD1800E09DEF /* machine2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = machine2.png; sourceTree = "<group>"; };
 		FB75F50419CF601500E09DEF /* MapDetailsDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapDetailsDelegate.h; sourceTree = "<group>"; };
 		FB75F50519CF601500E09DEF /* MapDetailsDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapDetailsDelegate.m; sourceTree = "<group>"; };
-		FB7D593A1AA12DE500F25669 /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
-		FB7D593D1AA12E1700F25669 /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
-		FB7D593E1AA12E1700F25669 /* OCMArg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMArg.h; sourceTree = "<group>"; };
-		FB7D593F1AA12E1700F25669 /* OCMConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMConstraint.h; sourceTree = "<group>"; };
-		FB7D59401AA12E1700F25669 /* OCMLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMLocation.h; sourceTree = "<group>"; };
-		FB7D59411AA12E1700F25669 /* OCMMacroState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMMacroState.h; sourceTree = "<group>"; };
-		FB7D59421AA12E1700F25669 /* OCMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMock.h; sourceTree = "<group>"; };
-		FB7D59431AA12E1700F25669 /* OCMockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockObject.h; sourceTree = "<group>"; };
-		FB7D59441AA12E1700F25669 /* OCMRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMRecorder.h; sourceTree = "<group>"; };
-		FB7D59451AA12E1700F25669 /* OCMStubRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMStubRecorder.h; sourceTree = "<group>"; };
+		FB7AFC0119D0CF20006E2D88 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "../GoogleMaps-iOS-1.8.1/GoogleMaps.framework"; sourceTree = "<group>"; };
 		FB841FB71A0437C700668BCA /* loginBackgroundBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loginBackgroundBlack.png; sourceTree = "<group>"; };
-		FB9341FD1A94189A00B2BA1D /* BulbNamesDataTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbNamesDataTest.m; sourceTree = "<group>"; };
 		FB9A683A1A018F3900E9CE0C /* CreateNewAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateNewAccount.h; sourceTree = "<group>"; };
 		FB9A683B1A018F3900E9CE0C /* CreateNewAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateNewAccount.m; sourceTree = "<group>"; };
 		FB9B8E3A19E342D3006F376F /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
@@ -137,6 +116,7 @@
 		FB9DB40219BE624F00329D67 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FB9DB40919BE6B4A00329D67 /* Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = "<group>"; };
 		FB9DB40A19BE6B4A00329D67 /* Map.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Map.m; sourceTree = "<group>"; };
+		FB9DB40E19BE70AD00329D67 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		FBA1937B19DB622F00608290 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
 		FBA1937C19DB622F00608290 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
 		FBA1937D19DB622F00608290 /* SSKeychain.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = SSKeychain.strings; sourceTree = "<group>"; };
@@ -151,20 +131,11 @@
 		FBA7FD531A16D7B700B9BB55 /* Presentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Presentation.m; sourceTree = "<group>"; };
 		FBA9F59119C24E8E009CED1D /* StaticDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaticDataTableViewController.h; sourceTree = "<group>"; };
 		FBA9F59219C24E8E009CED1D /* StaticDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaticDataTableViewController.m; sourceTree = "<group>"; };
-		FBABD3171AC45F1600B2BA43 /* settingsBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingsBlue.png; sourceTree = "<group>"; };
-		FBABD3181AC45F1600B2BA43 /* settingsWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingsWhite.png; sourceTree = "<group>"; };
+		FBBA75C71A03FA6D00FA55FE /* maps.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = maps.png; sourceTree = "<group>"; };
 		FBBA75C91A040E1E00FA55FE /* presentation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = presentation.png; sourceTree = "<group>"; };
 		FBBDD7B819BFC544005427BD /* MarkerInfoDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkerInfoDelegate.h; sourceTree = "<group>"; };
 		FBBDD7B919BFC544005427BD /* MarkerInfoDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkerInfoDelegate.m; sourceTree = "<group>"; };
-		FBD7C6491A8595850034E68D /* BulbNamesData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbNamesData.h; sourceTree = "<group>"; };
-		FBD7C64A1A8595850034E68D /* BulbNamesData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbNamesData.m; sourceTree = "<group>"; };
-		FBE475D51AD1D107003DD74A /* Map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Map.png; sourceTree = "<group>"; };
-		FBE475D71AD1D1F4003DD74A /* presentation3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = presentation3.png; sourceTree = "<group>"; };
-		FBE475DD1AD1E0EB003DD74A /* mail3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mail3.png; sourceTree = "<group>"; };
 		FBE739601A02F4BF00AA1154 /* ArkonLED_Logo_Black_HighRes.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ArkonLED_Logo_Black_HighRes.jpg; sourceTree = "<group>"; };
-		FBFBE8C61A9FD1F600F698F4 /* LEDFixturesData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LEDFixturesData.h; sourceTree = "<group>"; };
-		FBFBE8C71A9FD1F600F698F4 /* LEDFixturesData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LEDFixturesData.m; sourceTree = "<group>"; };
-		FBFBE8CA1A9FD7FE00F698F4 /* LEDFixturesDataTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LEDFixturesDataTest.m; sourceTree = "<group>"; };
 		FBFC06231A06A31B00007BBA /* LightPoleLargeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightPoleLargeImage.h; sourceTree = "<group>"; };
 		FBFC06241A06A31B00007BBA /* LightPoleLargeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightPoleLargeImage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -174,6 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB7AFC0219D0CF20006E2D88 /* GoogleMaps.framework in Frameworks */,
 				FB9DB40319BE624F00329D67 /* SystemConfiguration.framework in Frameworks */,
 				FB9DB40119BE620600329D67 /* QuartzCore.framework in Frameworks */,
 				FB9DB3FF19BE61FE00329D67 /* OpenGLES.framework in Frameworks */,
@@ -188,7 +160,6 @@
 				FB9DB3ED19BE5F8F00329D67 /* AVFoundation.framework in Frameworks */,
 				FB61B9B319BCD8DF00B78993 /* CoreGraphics.framework in Frameworks */,
 				FB61B9B519BCD8DF00B78993 /* UIKit.framework in Frameworks */,
-				FB6143D21AC20AD60055AD5C /* GoogleMaps.framework in Frameworks */,
 				FB61B9B119BCD8DF00B78993 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,7 +168,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB7D593B1AA12DE500F25669 /* libOCMock.a in Frameworks */,
 				FB61B9D519BCD8DF00B78993 /* UIKit.framework in Frameworks */,
 				FB61B9D419BCD8DF00B78993 /* Foundation.framework in Frameworks */,
 			);
@@ -228,9 +198,8 @@
 		FB61B9AF19BCD8DF00B78993 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FB6143D31AC20AE10055AD5C /* GoogleMaps.bundle */,
-				FB6143D11AC20AD60055AD5C /* GoogleMaps.framework */,
-				FB7D593A1AA12DE500F25669 /* libOCMock.a */,
+				FB7AFC0119D0CF20006E2D88 /* GoogleMaps.framework */,
+				FB9DB40E19BE70AD00329D67 /* GoogleMaps.bundle */,
 				FB9DB40219BE624F00329D67 /* SystemConfiguration.framework */,
 				FB9DB40019BE620600329D67 /* QuartzCore.framework */,
 				FB9DB3FE19BE61FE00329D67 /* OpenGLES.framework */,
@@ -253,7 +222,6 @@
 		FB61B9B619BCD8DF00B78993 /* ArkonLED */ = {
 			isa = PBXGroup;
 			children = (
-				FBD7C6481A8594DA0034E68D /* Model */,
 				FB9B8E3919E342AC006F376F /* OtherClasses */,
 				FBA1937A19DB619100608290 /* UserInfo */,
 				FB7AFC0319D0D3E3006E2D88 /* Graphs */,
@@ -285,11 +253,8 @@
 		FB61B9D819BCD8DF00B78993 /* ArkonLEDTests */ = {
 			isa = PBXGroup;
 			children = (
-				FB9341FD1A94189A00B2BA1D /* BulbNamesDataTest.m */,
-				FBFBE8CA1A9FD7FE00F698F4 /* LEDFixturesDataTest.m */,
-				FB7D593C1AA12E1700F25669 /* OCMock */,
+				FB61B9DE19BCD8DF00B78993 /* ArkonLEDTests.m */,
 				FB61B9D919BCD8DF00B78993 /* Supporting Files */,
-				FB0092A81AB62F400011B036 /* MarkerInfoDelegateTest.m */,
 			);
 			path = ArkonLEDTests;
 			sourceTree = "<group>";
@@ -315,16 +280,12 @@
 		FB75F4FE19CDBCF700E09DEF /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				FBE475DD1AD1E0EB003DD74A /* mail3.png */,
-				FBE475D71AD1D1F4003DD74A /* presentation3.png */,
-				FBE475D51AD1D107003DD74A /* Map.png */,
-				FBABD3171AC45F1600B2BA43 /* settingsBlue.png */,
-				FBABD3181AC45F1600B2BA43 /* settingsWhite.png */,
 				FBA7FD501A16C2DF00B9BB55 /* mail.png */,
 				FBA1F2051A051D2F00EAF8E2 /* maps2.png */,
 				FBA1F2061A051D2F00EAF8E2 /* presentation2.png */,
 				FB841FB71A0437C700668BCA /* loginBackgroundBlack.png */,
 				FBBA75C91A040E1E00FA55FE /* presentation.png */,
+				FBBA75C71A03FA6D00FA55FE /* maps.png */,
 				FBE739601A02F4BF00AA1154 /* ArkonLED_Logo_Black_HighRes.jpg */,
 				FB75F4FF19CDBD1800E09DEF /* machine2.png */,
 			);
@@ -338,22 +299,6 @@
 				FBA7FD531A16D7B700B9BB55 /* Presentation.m */,
 			);
 			name = Graphs;
-			sourceTree = "<group>";
-		};
-		FB7D593C1AA12E1700F25669 /* OCMock */ = {
-			isa = PBXGroup;
-			children = (
-				FB7D593D1AA12E1700F25669 /* NSNotificationCenter+OCMAdditions.h */,
-				FB7D593E1AA12E1700F25669 /* OCMArg.h */,
-				FB7D593F1AA12E1700F25669 /* OCMConstraint.h */,
-				FB7D59401AA12E1700F25669 /* OCMLocation.h */,
-				FB7D59411AA12E1700F25669 /* OCMMacroState.h */,
-				FB7D59421AA12E1700F25669 /* OCMock.h */,
-				FB7D59431AA12E1700F25669 /* OCMockObject.h */,
-				FB7D59441AA12E1700F25669 /* OCMRecorder.h */,
-				FB7D59451AA12E1700F25669 /* OCMStubRecorder.h */,
-			);
-			path = OCMock;
 			sourceTree = "<group>";
 		};
 		FB9B8E3919E342AC006F376F /* OtherClasses */ = {
@@ -417,17 +362,6 @@
 			name = "Hide Cells";
 			sourceTree = "<group>";
 		};
-		FBD7C6481A8594DA0034E68D /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				FBD7C6491A8595850034E68D /* BulbNamesData.h */,
-				FBD7C64A1A8595850034E68D /* BulbNamesData.m */,
-				FBFBE8C61A9FD1F600F698F4 /* LEDFixturesData.h */,
-				FBFBE8C71A9FD1F600F698F4 /* LEDFixturesData.m */,
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -476,10 +410,9 @@
 				ORGANIZATIONNAME = ArkonLED;
 				TargetAttributes = {
 					FB61B9AC19BCD8DF00B78993 = {
-						DevelopmentTeam = 52Y82YWKD3;
+						DevelopmentTeam = U56DV5D26H;
 					};
 					FB61B9D019BCD8DF00B78993 = {
-						DevelopmentTeam = 52Y82YWKD3;
 						TestTargetID = FB61B9AC19BCD8DF00B78993;
 					};
 				};
@@ -491,39 +424,6 @@
 			knownRegions = (
 				en,
 				Base,
-				ar,
-				ca,
-				cs,
-				da,
-				de,
-				el,
-				en_GB,
-				es,
-				fi,
-				fr,
-				he,
-				hr,
-				hu,
-				id,
-				it,
-				ja,
-				ko,
-				ms,
-				nl,
-				no,
-				pl,
-				pt,
-				pt_PT,
-				ro,
-				ru,
-				sk,
-				sv,
-				th,
-				tr,
-				uk,
-				vi,
-				zh_CN,
-				zh_TW,
 			);
 			mainGroup = FB61B9A419BCD8DF00B78993;
 			productRefGroup = FB61B9AE19BCD8DF00B78993 /* Products */;
@@ -541,24 +441,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBE475DE1AD1E0EB003DD74A /* mail3.png in Resources */,
 				FBA7FD511A16C2DF00B9BB55 /* mail.png in Resources */,
 				FB61B9C719BCD8DF00B78993 /* Main_iPad.storyboard in Resources */,
 				FBBA75CA1A040E1E00FA55FE /* presentation.png in Resources */,
 				FB61B9CC19BCD8DF00B78993 /* Images.xcassets in Resources */,
-				FBE475D81AD1D1F4003DD74A /* presentation3.png in Resources */,
-				FBABD3191AC45F1600B2BA43 /* settingsBlue.png in Resources */,
 				FBA1F2071A051D2F00EAF8E2 /* maps2.png in Resources */,
-				FBABD31A1AC45F1600B2BA43 /* settingsWhite.png in Resources */,
+				FBBA75C81A03FA6D00FA55FE /* maps.png in Resources */,
 				FB75F50019CDBD1800E09DEF /* machine2.png in Resources */,
-				FBE475D61AD1D107003DD74A /* Map.png in Resources */,
 				FBE739611A02F4BF00AA1154 /* ArkonLED_Logo_Black_HighRes.jpg in Resources */,
 				FB61B9C419BCD8DF00B78993 /* Main_iPhone.storyboard in Resources */,
 				FBA1938319DB622F00608290 /* SSKeychain.strings in Resources */,
 				FB61B9BB19BCD8DF00B78993 /* InfoPlist.strings in Resources */,
 				FB841FB81A0437C700668BCA /* loginBackgroundBlack.png in Resources */,
 				FBA1F2081A051D2F00EAF8E2 /* presentation2.png in Resources */,
-				FB6143D41AC20AE10055AD5C /* GoogleMaps.bundle in Resources */,
+				FB9DB40F19BE70AD00329D67 /* GoogleMaps.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -579,10 +475,8 @@
 			files = (
 				FBA1938419DB622F00608290 /* SSKeychainQuery.m in Sources */,
 				FB9B8E3C19E342D3006F376F /* NSData+Base64.m in Sources */,
-				FBD7C64B1A8595850034E68D /* BulbNamesData.m in Sources */,
 				FB61B9EA19BD097900B78993 /* Login.m in Sources */,
 				FB65D24319C4CB6E005626F1 /* CalculateArea.m in Sources */,
-				FBFBE8C81A9FD1F600F698F4 /* LEDFixturesData.m in Sources */,
 				FB9DB40B19BE6B4A00329D67 /* Map.m in Sources */,
 				FBA7FD541A16D7B700B9BB55 /* Presentation.m in Sources */,
 				FBA9F59319C24E8E009CED1D /* StaticDataTableViewController.m in Sources */,
@@ -602,9 +496,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBFBE8CB1A9FD7FE00F698F4 /* LEDFixturesDataTest.m in Sources */,
-				FB9341FE1A94189A00B2BA1D /* BulbNamesDataTest.m in Sources */,
-				FB0092A91AB62F400011B036 /* MarkerInfoDelegateTest.m in Sources */,
+				FB61B9DF19BCD8DF00B78993 /* ArkonLEDTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -738,7 +630,9 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"/Users/mnation/Documents/iPhone/GoogleMaps-iOS-1.8.1",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"/Users/mnation/Documents/iPhone/GoogleMaps-iOS-1.8.1",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ArkonLED/SiteLite-Prefix.pch";
@@ -761,7 +655,9 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"/Users/mnation/Documents/iPhone/GoogleMaps-iOS-1.8.1",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"/Users/mnation/Documents/iPhone/GoogleMaps-iOS-1.8.1",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ArkonLED/SiteLite-Prefix.pch";
@@ -777,31 +673,21 @@
 		FB61B9E619BCD8DF00B78993 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ArkonLED.app/ArkonLED";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ArkonLED/SiteLite-Prefix.pch";
+				GCC_PREFIX_HEADER = "ArkonLED/ArkonLED-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(PROJECT_DIR)/ArkonLEDTests",
-					Files,
-				);
 				INFOPLIST_FILE = "ArkonLEDTests/SiteLiteTests-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
 				PRODUCT_NAME = SiteLiteTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SiteLite.app/SiteLite";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -809,27 +695,17 @@
 		FB61B9E719BCD8DF00B78993 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ArkonLED.app/ArkonLED";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ArkonLED/SiteLite-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(PROJECT_DIR)/ArkonLEDTests",
-					Files,
-				);
+				GCC_PREFIX_HEADER = "ArkonLED/ArkonLED-Prefix.pch";
 				INFOPLIST_FILE = "ArkonLEDTests/SiteLiteTests-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
 				PRODUCT_NAME = SiteLiteTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SiteLite.app/SiteLite";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;

@@ -9,6 +9,7 @@ factory('commonFactory', function (){
     // Use this url only when working locally, use relative path best when deploying to AWS
 	factory.baseUrl = "http://ec2-54-84-156-215.compute-1.amazonaws.com";
 	//factory.baseUrl = "..";
+	
 
 
 	// Update scope from outside component

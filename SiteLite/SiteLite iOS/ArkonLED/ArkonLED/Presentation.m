@@ -29,6 +29,7 @@
     self.userInfoGlobal = [[UserInfoGlobal alloc] init];
     
     NSString *urlAddress = [NSString stringWithFormat:@"%@/home/#/client/%@", [UserInfoGlobal serverURL], self.strProjectID];
+    
     NSURL *url = [NSURL URLWithString:urlAddress];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     

@@ -25,6 +25,8 @@
 @property (strong, nonatomic) NSString *strCost;
 @property (strong, nonatomic) IBOutlet UITextField *txtDateOfService;
 @property (strong, nonatomic) NSString *strDateOfService;
+@property (strong, nonatomic) IBOutlet UITextField *txtDailyUsageHours;
+@property (strong, nonatomic) NSString *strDailyUsageHours;
 
 @property(nonatomic) BOOL isNewProject;
 

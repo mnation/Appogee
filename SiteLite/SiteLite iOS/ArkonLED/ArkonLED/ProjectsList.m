@@ -10,7 +10,10 @@
 
 @interface ProjectsList ()
 
+@property (nonatomic) NSIndexPath *indexPathOfCellBeingDeleted;
+
 @end
+
 
 @implementation ProjectsList
 
@@ -40,7 +43,7 @@
     self.navigationController.toolbarHidden = NO;
     
     //Get Projects
-    NSString *strURL = [NSString stringWithFormat:@"%@/iOS/Projects/getProjectNamesByStatus.php?userID=%@&userType=%@", [UserInfoGlobal serverURL], [UserInfoGlobal userID], [UserInfoGlobal userType]];
+    NSString *strURL = [NSString stringWithFormat:@"%@/iOS/Projects/getProjectNamesByStatus.php?userID=%@", [UserInfoGlobal serverURL], [UserInfoGlobal userID]];
     
     // Create Data from request
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:strURL]];
@@ -205,6 +208,7 @@
     else
     {
         dicProjectInfo = nil;
+        return cell;
     }
     
     UILabel *lblTitle = (UILabel *)[cell viewWithTag:1];
@@ -214,8 +218,8 @@
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
     NSDate *date = [formatter dateFromString:[dicProjectInfo objectForKey:@"date_opened"]];
-    [formatter setDateStyle:NSDateFormatterShortStyle];
-    //[formatter setTimeStyle:NSDateFormatterShortStyle];
+    //[formatter setDateStyle:NSDateFormatterShortStyle];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
     [formatter setTimeZone:[NSTimeZone systemTimeZone]];
     UILabel *lblDateOpen = (UILabel *)[cell viewWithTag:2];
     lblDateOpen.text = [formatter stringFromDate:date];
@@ -240,6 +244,12 @@
         lblLocation.text = @"";
     }
     
+    UIButton *btnEmail = (UIButton *)[cell viewWithTag:10];
+    if([dicProjectInfo[@"contact_email"] isEqualToString:@""])
+        btnEmail.enabled = NO;
+    else
+        btnEmail.enabled = YES;
+    
     return cell;
 }
 
@@ -250,28 +260,42 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete)
+    if(editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        self.indexPathOfCellBeingDeleted = indexPath;
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"CONFIRM" message:[NSString stringWithFormat:@"Are you sure you want to delete this project?"] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil];
+        [alert show];
+    }
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    //Cancel
+    if(buttonIndex == 0)
+    {
+        [self.tableView setEditing:NO animated:YES];
+    }
+    //Delete
+    else if(buttonIndex == 1)
     {
         NSDictionary *dicProjectInfo;
         // Remove from array
         if([self.strAssemblyType isEqualToString:@"ACTIVE"])
         {
-            dicProjectInfo = [self.activeProjects objectAtIndex:indexPath.row];
-            [self.activeProjects removeObjectAtIndex:indexPath.row];
+            dicProjectInfo = [self.activeProjects objectAtIndex:self.indexPathOfCellBeingDeleted.row];
+            [self.activeProjects removeObjectAtIndex:self.indexPathOfCellBeingDeleted.row];
         }
         else if([self.strAssemblyType isEqualToString:@"INACTIVE"])
         {
-            dicProjectInfo = [self.inactiveProjects objectAtIndex:indexPath.row];
-            [self.inactiveProjects removeObjectAtIndex:indexPath.row];
+            dicProjectInfo = [self.inactiveProjects objectAtIndex:self.indexPathOfCellBeingDeleted.row];
+            [self.inactiveProjects removeObjectAtIndex:self.indexPathOfCellBeingDeleted.row];
         }
         else if([self.strAssemblyType isEqualToString:@"CLOSED"])
         {
-            dicProjectInfo = [self.closedProjects objectAtIndex:indexPath.row];
-            [self.closedProjects removeObjectAtIndex:indexPath.row];
+            dicProjectInfo = [self.closedProjects objectAtIndex:self.indexPathOfCellBeingDeleted.row];
+            [self.closedProjects removeObjectAtIndex:self.indexPathOfCellBeingDeleted.row];
         }
-        
-        // This line manages to delete the cell on tableView
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
         NSString *myRequestString = [NSString stringWithFormat:@"projectID=%@&userID=%@", dicProjectInfo[@"project_ID"], [UserInfoGlobal userID]];
         
@@ -299,6 +323,9 @@
                      
                      [errorView show];
                  }
+                 //Delete the cell on tableView
+                 else
+                     [self.tableView deleteRowsAtIndexPaths:@[self.indexPathOfCellBeingDeleted] withRowAnimation:UITableViewRowAnimationFade];
              }
              else
              {
@@ -307,6 +334,8 @@
                  [errorView show];
                  
              }
+             
+             self.indexPathOfCellBeingDeleted = nil;
          }];
     }
 }
@@ -435,6 +464,7 @@
             vc.strPhone = [dicProjectInfo objectForKey:@"contact_phone"];
             vc.strEmail = [dicProjectInfo objectForKey:@"contact_email"];
             vc.strComments = [dicProjectInfo objectForKey:@"comments"];
+            vc.strDailyUsageHours = [NSString stringWithFormat:@"%d", [[dicProjectInfo objectForKey:@"project_usage_hours"] intValue]];
         }
         else if([segue.identifier isEqualToString:@"ProjectsToPresentation"])
         {

@@ -5,7 +5,7 @@
   <!-- Nav Header -->
   <div class="navbar-header">
     <a class="navbar-brand" href="#"  onclick='location.reload();'>
-      <img width="220px" style="margin-top: -17px; margin-left: -13px;" class="img-responsive pull-left" id="logo" alt="ArkonLED" src="webapp/images/ArkonLED_Logo_Black_HighRes.jpg">
+      <img width="220px" style="margin-top: -13px; margin-left: -5px;" class="img-responsive pull-left" id="logo" alt="ArkonLED" src="webapp/images/Sitelite_Transparent_forblack.png">
     </a>
   </div>
   <!-- Nav Top Right Menus -->
@@ -16,8 +16,8 @@
       </a>
 
 		<ul class="dropdown-menu dropdown-user">
-			<li style="padding:3px 15px; cursor:pointer;"><a href="/../phpmyadmin"><i class="fa fa-gear fa-fw"></i>Admin</a></li>
-          <li ng-click="logout()" style="padding:3px 15px; cursor:pointer;"><i class="fa fa-sign-out fa-fw"></i> Logout</li>
+			<li ng-if="userType==2" style="cursor:pointer;"><a href="/../phpmyadmin"><i class="fa fa-gear fa-fw"></i> Admin</a></li>
+          <li ng-click="logout()" style="padding:1px 15px; cursor:pointer;"><i class="fa fa-sign-out fa-fw"></i> Logout</li>
       </ul>
     </li>
   </ul>
@@ -67,7 +67,7 @@
                   <td>{{ project.city }}</td>
                   <td>{{ project.state }}</td>
                   <td ng-switch on="project.status_description">
-                    <span ng-switch-when="HOT" class="badge alert-danger">{{ project.status_description }}</span>
+                    <span ng-switch-when="HOT" class="badge alert-warning">{{ project.status_description }}</span>
                     <span ng-switch-when="COLD" class="badge alert-info">{{ project.status_description }}</span>
                     <span ng-switch-when="CLOSED" class="badge alert-success">{{ project.status_description }}</span>
                   </td>

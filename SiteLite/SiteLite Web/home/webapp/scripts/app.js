@@ -35,6 +35,10 @@ config(['$routeProvider', function($routeProvider) {
         templateUrl: 'webapp/partials/tablet.html',
         controller: 'TabletController'
     }).
+	when('/phone/:projectId', {
+        templateUrl: 'webapp/partials/phone.html',
+        controller: 'ClientController'
+    }).
     when('/login/:message', {
         templateUrl: 'webapp/partials/login.html',
         controller: 'LoginController'

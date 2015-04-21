@@ -34,9 +34,6 @@
     self.markerCount = 0;
     self.markerWindowIsOpen = NO;
     
-    //Round corners
-    self.viewEditPrjDetails.layer.cornerRadius = 5;
-    
     [self loadMapView];
     
     if(self.isNewProject)
@@ -169,20 +166,20 @@
                              if([dicMarker[@"numOfHeads"] intValue] == 1)
                              {
                                  //Shoebox
-                                 if(dicMarker[@"assemblyTypeID"] == 0)
+                                 if([dicMarker[@"assemblyTypeID"] intValue] == 0)
                                      marker.snippet = [NSString stringWithFormat:@"C: %@ Shoebox, %@W %@\n", dicMarker[@"numOfHeads"], dicMarker[@"wattage"], dicMarker[@"bulbTypeName"]];
                                  //Wallpack
                                  else
-                                     marker.snippet = [NSString stringWithFormat:@"C: %@ Wallpack, %@W %@\n", dicMarker[@"numOfHeads"], dicMarker[@"wattage"], dicMarker[@"bulbTypeName"]];
+                                     marker.snippet = [NSString stringWithFormat:@"C: %@ Wallpack/Canopy, %@W %@\n", dicMarker[@"numOfHeads"], dicMarker[@"wattage"], dicMarker[@"bulbTypeName"]];
                              }
                              else
                              {
                                  //Shoebox
-                                 if(dicMarker[@"assemblyTypeID"] == 0)
+                                 if([dicMarker[@"assemblyTypeID"] intValue] == 0)
                                      marker.snippet = [NSString stringWithFormat:@"C: %@ Shoeboxes, %@W %@\n", dicMarker[@"numOfHeads"], dicMarker[@"wattage"], dicMarker[@"bulbTypeName"]];
                                  //Wallpack
                                  else
-                                     marker.snippet = [NSString stringWithFormat:@"C: %@ Wallpacks, %@W %@\n", dicMarker[@"numOfHeads"], dicMarker[@"wattage"], dicMarker[@"bulbTypeName"]];
+                                     marker.snippet = [NSString stringWithFormat:@"C: %@ Wallpacks/Canopies, %@W %@\n", dicMarker[@"numOfHeads"], dicMarker[@"wattage"], dicMarker[@"bulbTypeName"]];
                              }
                          }
                          
@@ -195,20 +192,20 @@
                              if([dicMarker[@"numOfHeadsProposed"] intValue] == 1)
                              {
                                  //Shoebox
-                                 if(dicMarker[@"assemblyTypeID"] == 0)
+                                 if([dicMarker[@"assemblyTypeID"] intValue] == 0)
                                      marker.snippet = [NSString stringWithFormat:@"%@P: %@ Shoebox, %@W LED", marker.snippet, dicMarker[@"numOfHeadsProposed"], strLEDFixtureWattage];
                                  //Wallpack
                                  else
-                                     marker.snippet = [NSString stringWithFormat:@"%@P: %@ Wallpack, %@W LED", marker.snippet, dicMarker[@"numOfHeadsProposed"], strLEDFixtureWattage];
+                                     marker.snippet = [NSString stringWithFormat:@"%@P: %@ Wallpack/Canopy, %@W LED", marker.snippet, dicMarker[@"numOfHeadsProposed"], strLEDFixtureWattage];
                              }
                              else
                              {
                                  //Shoebox
-                                 if(dicMarker[@"assemblyTypeID"] == 0)
+                                 if([dicMarker[@"assemblyTypeID"] intValue] == 0)
                                      marker.snippet = [NSString stringWithFormat:@"%@P: %@ Shoeboxes, %@W LED", marker.snippet, dicMarker[@"numOfHeadsProposed"], strLEDFixtureWattage];
                                  //Wallpack
                                  else
-                                     marker.snippet = [NSString stringWithFormat:@"%@P: %@ Wallpacks, %@W LED", marker.snippet, dicMarker[@"numOfHeadsProposed"], strLEDFixtureWattage];
+                                     marker.snippet = [NSString stringWithFormat:@"%@P: %@ Wallpacks/Canopies, %@W LED", marker.snippet, dicMarker[@"numOfHeadsProposed"], strLEDFixtureWattage];
                              }
                          }
                          
@@ -495,11 +492,12 @@
     self.strPhone = dicProjectDetails[@"contactPhone"];
     self.strEmail = dicProjectDetails[@"contactEmail"];
     self.strComments = dicProjectDetails[@"comments"];
+    self.strDailyUsageHours = dicProjectDetails[@"dailyUsageHours"];
     
     if(isNewProject)
     {
         //Insert new row in database
-        NSString *myRequestString = [NSString stringWithFormat:@"projectName=%@&userID=%@&powerCost=%@&dateOfService=%@&contactName=%@&contactPhone=%@&contactEmail=%@&comments=%@", self.navigationItem.title, [UserInfoGlobal userID], self.strCostPerKWH, self.strDateOfService, self.strNameOfRep, self.strPhone, self.strEmail, self.strComments];
+        NSString *myRequestString = [NSString stringWithFormat:@"projectName=%@&userID=%@&powerCost=%@&dateOfService=%@&contactName=%@&contactPhone=%@&contactEmail=%@&comments=%@&dailyUsageHours=%@", self.navigationItem.title, [UserInfoGlobal userID], self.strCostPerKWH, self.strDateOfService, self.strNameOfRep, self.strPhone, self.strEmail, self.strComments, self.strDailyUsageHours];
 
         NSData *myRequestData = [NSData dataWithBytes:[myRequestString UTF8String] length:[myRequestString length]];
         NSString *URL = [NSString stringWithFormat:@"%@/iOS/Projects/newProject.php", [UserInfoGlobal serverURL]];
@@ -532,7 +530,7 @@
     else
     {
         //Update database
-        NSString *myRequestString = [NSString stringWithFormat:@"projectName=%@&userID=%@&powerCost=%@&dateOfService=%@&contactName=%@&contactPhone=%@&contactEmail=%@&comments=%@&projectID=%@", self.navigationItem.title, [UserInfoGlobal userID], self.strCostPerKWH, self.strDateOfService, self.strNameOfRep, self.strPhone, self.strEmail, self.strComments, self.strProjectID];
+        NSString *myRequestString = [NSString stringWithFormat:@"projectName=%@&userID=%@&powerCost=%@&dateOfService=%@&contactName=%@&contactPhone=%@&contactEmail=%@&comments=%@&dailyUsageHours=%@&projectID=%@", self.navigationItem.title, [UserInfoGlobal userID], self.strCostPerKWH, self.strDateOfService, self.strNameOfRep, self.strPhone, self.strEmail, self.strComments, self.strDailyUsageHours, self.strProjectID];
 
         NSData *myRequestData = [NSData dataWithBytes:[myRequestString UTF8String] length:[myRequestString length]];
         NSString *URL = [NSString stringWithFormat:@"%@/iOS/Projects/updateProject.php", [UserInfoGlobal serverURL]];
@@ -638,6 +636,7 @@
         vc.strPhone = self.strPhone;
         vc.strEmail = self.strEmail;
         vc.strComments = self.strComments;
+        vc.strDailyUsageHours = self.strDailyUsageHours;
     }
 }
 

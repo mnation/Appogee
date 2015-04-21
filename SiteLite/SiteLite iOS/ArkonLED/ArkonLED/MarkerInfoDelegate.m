@@ -292,14 +292,14 @@
             if([self lEDFixturesPickerIsShoeBox])
                 self.marker.snippet = [NSString stringWithFormat:@"C: %@ Shoebox, %@W %@\n", self.txtNumOfHeads.text, self.txtWattage.text, self.strSelectedBulbType];
             else
-                self.marker.snippet = [NSString stringWithFormat:@"C: %@ Wallpack, %@W %@\n", self.txtNumOfHeads.text, self.txtWattage.text, self.strSelectedBulbType];
+                self.marker.snippet = [NSString stringWithFormat:@"C: %@ Wallpack/Canopy, %@W %@\n", self.txtNumOfHeads.text, self.txtWattage.text, self.strSelectedBulbType];
         }
         else
         {
             if([self lEDFixturesPickerIsShoeBox])
                 self.marker.snippet = [NSString stringWithFormat:@"C: %@ Shoeboxes, %@W %@\n", self.txtNumOfHeads.text, self.txtWattage.text, self.strSelectedBulbType];
             else
-                self.marker.snippet = [NSString stringWithFormat:@"C: %@ Wallpacks, %@W %@\n", self.txtNumOfHeads.text, self.txtWattage.text, self.strSelectedBulbType];
+                self.marker.snippet = [NSString stringWithFormat:@"C: %@ Wallpacks/Canopies, %@W %@\n", self.txtNumOfHeads.text, self.txtWattage.text, self.strSelectedBulbType];
         }
     }
     
@@ -325,14 +325,14 @@
             if([self lEDFixturesPickerIsShoeBox])
                 self.marker.snippet = [NSString stringWithFormat:@"%@P: %@ Shoebox, %@W LED", self.marker.snippet, self.txtNumOfHeadsProposed.text, strLEDFixtureWattage];
             else
-                self.marker.snippet = [NSString stringWithFormat:@"%@P: %@ Wallpack, %@W LED", self.marker.snippet, self.txtNumOfHeadsProposed.text, strLEDFixtureWattage];
+                self.marker.snippet = [NSString stringWithFormat:@"%@P: %@ Wallpack/Canopy, %@W LED", self.marker.snippet, self.txtNumOfHeadsProposed.text, strLEDFixtureWattage];
         }
         else
         {
             if([self lEDFixturesPickerIsShoeBox])
                 self.marker.snippet = [NSString stringWithFormat:@"%@P: %@ Shoeboxes, %@W LED", self.marker.snippet, self.txtNumOfHeadsProposed.text, strLEDFixtureWattage];
             else
-                self.marker.snippet = [NSString stringWithFormat:@"%@P: %@ Wallpacks, %@W LED", self.marker.snippet, self.txtNumOfHeadsProposed.text, strLEDFixtureWattage];
+                self.marker.snippet = [NSString stringWithFormat:@"%@P: %@ Wallpacks/Canopies, %@W LED", self.marker.snippet, self.txtNumOfHeadsProposed.text, strLEDFixtureWattage];
         }
     }
     

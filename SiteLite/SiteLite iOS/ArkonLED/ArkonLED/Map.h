@@ -37,9 +37,8 @@
 @property (strong, nonatomic) NSString *strEmail;
 @property (strong, nonatomic) NSString *strComments;
 @property (strong, nonatomic) NSString *strProjectID;
+@property (strong, nonatomic) NSString *strDailyUsageHours;
 @property (nonatomic) bool isNewProject;
-
-@property (strong, nonatomic) IBOutlet UIView *viewEditPrjDetails;
 
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 

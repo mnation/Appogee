@@ -9,12 +9,12 @@
 #import "CalculateArea.h"
 
 @interface CalculateArea ()
-{
-    double area;
-    BOOL markerWindowIsOpen;
-}
+
+@property() BOOL markerWindowIsOpen;
+@property() double area;
 
 @end
+
 
 @implementation CalculateArea
 
@@ -48,8 +48,8 @@
     
     //Initialize Array
     self.arrayAreaMarkers = [[NSMutableArray alloc] init];
-    area = 0;
-    markerWindowIsOpen = NO;
+    self.area = 0;
+    self.markerWindowIsOpen = NO;
     
     //Get Light Pole Markers
     NSString *URL = [NSString stringWithFormat:@"%@/iOS/CalculateArea/getLotAreaMarkers.php?projectID=%@&userID=%@", [UserInfoGlobal serverURL], self.strProjectID, [UserInfoGlobal userID]];
@@ -159,7 +159,7 @@
 - (IBAction)calculateAreaClicked:(id)sender
 {
     self.mapView_.selectedMarker = nil;
-    markerWindowIsOpen = NO;
+    self.markerWindowIsOpen = NO;
     
     if(self.arrayAreaMarkers.count < 3)
     {
@@ -172,38 +172,36 @@
     self.polygon.map = nil;
     self.polygon = nil;
     self.polygon = [GMSPolygon polygonWithPath:self.rect];
-    //self.polygon.fillColor = [UIColor colorWithRed:0.25 green:0 blue:0 alpha:0.05];
-    //self.polygon.strokeColor = [UIColor blackColor];
-    //self.polygon.strokeWidth = 2;
     self.polygon.map = self.mapView_;
     
-    area = GMSGeometryArea(self.rect) * 10.76391111;
-    self.lblArea.title = [NSString stringWithFormat:@"%.0f ft\u00B2", area];
+    self.area = GMSGeometryArea(self.rect) * 10.76391111;
+    self.lblArea.title = [NSString stringWithFormat:@"%.0f ft\u00B2", self.area];
 }
 
 - (IBAction)doneBtnClicked:(id)sender
 {
-    if([self.lblArea.title isEqualToString:@""])
-    {
-        UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"WARNING" message:@"You must calculate an area before pressing Done." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        
-        [errorView show];
-        return;
-    }
-    
     //Create markers string
-    NSString *strMarkerCoordinates = @"";
-    GMSMarker *tmpMarker;
-    int i;
-    for(i = 0; i < self.arrayAreaMarkers.count - 1; i++)
-    {
-        tmpMarker = [self.arrayAreaMarkers objectAtIndex:i];
-        strMarkerCoordinates = [NSString stringWithFormat:@"%@%f_%f,", strMarkerCoordinates, tmpMarker.position.latitude, tmpMarker.position.longitude];
-    }
-    tmpMarker = [self.arrayAreaMarkers objectAtIndex:i];
-    strMarkerCoordinates = [NSString stringWithFormat:@"%@%f_%f", strMarkerCoordinates, tmpMarker.position.latitude, tmpMarker.position.longitude];
+    NSMutableString *strMarkerCoordinates = [[NSMutableString alloc] initWithString:@""];
     
-    NSString *myRequestString = [NSString stringWithFormat:@"projectID=%@&area=%@&markers=%@&userID=%@", self.strProjectID, self.lblArea.title, strMarkerCoordinates, [UserInfoGlobal userID]];
+    if(self.lblArea.title != nil && ![self.lblArea.title isEqualToString:@""])
+    {
+        GMSMarker *tmpMarker;
+        int i;
+        for(i = 0; i < self.arrayAreaMarkers.count - 1; i++)
+        {
+            tmpMarker = [self.arrayAreaMarkers objectAtIndex:i];
+            //strMarkerCoordinates = [NSString stringWithFormat:@"%@%f_%f,", strMarkerCoordinates, tmpMarker.position.latitude, tmpMarker.position.longitude];
+            [strMarkerCoordinates appendString:[NSString stringWithFormat:@"%f_%f,", tmpMarker.position.latitude, tmpMarker.position.longitude]];
+        }
+        tmpMarker = [self.arrayAreaMarkers objectAtIndex:i];
+        //strMarkerCoordinates = [NSString stringWithFormat:@"%@%f_%f", strMarkerCoordinates, tmpMarker.position.latitude, tmpMarker.position.longitude];
+        [strMarkerCoordinates appendString:[NSString stringWithFormat:@"%f_%f", tmpMarker.position.latitude, tmpMarker.position.longitude]];
+    }
+    
+    //NSString *myRequestString = [NSString stringWithFormat:@"projectID=%@&area=%@&markers=%@&userID=%@", self.strProjectID, self.lblArea.title, strMarkerCoordinates, [UserInfoGlobal userID]];
+    NSString *myRequestString = [NSString stringWithFormat:@"projectID=%@&area=%f&markers=%@&userID=%@", self.strProjectID, self.area, strMarkerCoordinates, [UserInfoGlobal userID]];
+    
+    //NSLog(@"%@", myRequestString); return;
     
     // Create Data from request
     NSData *myRequestData = [NSData dataWithBytes:[myRequestString UTF8String] length:[myRequestString length]];
@@ -254,7 +252,7 @@
 {
     [self.mapView_ clear];
     [self.arrayAreaMarkers removeAllObjects];
-    area = 0;
+    self.area = 0;
     self.lblArea.title = @"";
 }
 
@@ -274,7 +272,7 @@
         }
     }
     
-    area = 0;
+    self.area = 0;
     
     self.polygon.map = nil;
     self.polygon = nil;
@@ -291,27 +289,16 @@
     self.polyline = [GMSPolyline polylineWithPath:self.rect];
     self.polyline.map = self.mapView_;
     
-    if(self.arrayAreaMarkers.count >= 3 && ![self.lblArea.title isEqualToString:@""])
-    {
-        [self calculateAreaClicked:nil];
-    }
-    else
-        self.lblArea.title = @"";
+    [self calculateAreaWithValidation];
 }
-
-/*
--(void)mapView:(GMSMapView *)mapView didLongPressAtCoordinate:(CLLocationCoordinate2D)coordinate
-{
-    NSLog(@"Long Press");
-} */
 
 -(void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
     NSLog(@"Tap Map");
     
-    if(markerWindowIsOpen)
+    if(self.markerWindowIsOpen)
     {
-        markerWindowIsOpen = NO;
+        self.markerWindowIsOpen = NO;
     }
     else
     {
@@ -326,7 +313,7 @@
         
         [self.arrayAreaMarkers addObject:marker];
         
-        area = 0;
+        self.area = 0;
         
         self.polygon.map = nil;
         self.polygon = nil;
@@ -344,12 +331,7 @@
         self.polyline = [GMSPolyline polylineWithPath:self.rect];
         self.polyline.map = self.mapView_;
         
-        if(self.arrayAreaMarkers.count >= 3 && ![self.lblArea.title isEqualToString:@""])
-        {
-            [self calculateAreaClicked:nil];
-        }
-        else
-            self.lblArea.title = @"";
+        [self calculateAreaWithValidation];
     }
 }
 
@@ -357,7 +339,7 @@
 {
     NSLog(@"Marker Window");
     
-    markerWindowIsOpen = YES;
+    self.markerWindowIsOpen = YES;
     
     return nil;
 }
@@ -367,9 +349,9 @@
 {
     NSLog(@"Tapped Marker");
     
-    if(markerWindowIsOpen)
+    if(self.markerWindowIsOpen)
     {
-        markerWindowIsOpen = NO;
+        self.markerWindowIsOpen = NO;
     }
     
     return false;
@@ -377,7 +359,7 @@
 
 -(void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker
 {
-    markerWindowIsOpen = NO;
+    self.markerWindowIsOpen = NO;
     
     for(int i = 0; i < self.arrayAreaMarkers.count; i++)
     {
@@ -390,8 +372,7 @@
         }
     }
     
-    area = 0;
-    self.lblArea.title = @"";
+    self.area = 0;
     
     self.polygon.map = nil;
     self.polygon = nil;
@@ -407,7 +388,17 @@
     self.polyline = nil;
     self.polyline = [GMSPolyline polylineWithPath:self.rect];
     self.polyline.map = self.mapView_;
+    
+    [self calculateAreaWithValidation];
 }
 
-
+- (void)calculateAreaWithValidation
+{
+    if(self.arrayAreaMarkers.count >= 3 && ![self.lblArea.title isEqualToString:@""])
+    {
+        [self calculateAreaClicked:nil];
+    }
+    else
+        self.lblArea.title = @"";
+}
 @end

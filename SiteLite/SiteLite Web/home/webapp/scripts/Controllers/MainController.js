@@ -22,6 +22,8 @@ arkonLEDApp.controller('MainController',function ($scope, $http, projectsFactory
 	$scope.logout = function() {
 		loginFactory.logout(); 
 	};
+	
+	
 
 	// Infowindox on click -- Load project
     $(document).on('click', '.infoW', function(){

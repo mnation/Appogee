@@ -29,6 +29,10 @@
     self.txtComments.text = self.strComments;
     self.txtDateOfService.text = self.strDateOfService;
     
+    //New Project. Leave Daily Usage Hours as 12 by default. Else, use existing value
+    if(self.strProjectName != nil && ![self.strProjectName isEqualToString:@""])
+        self.txtDailyUsageHours.text = self.strDailyUsageHours;
+    
     //Hide seperator lines for empty cells
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
@@ -57,14 +61,6 @@
         return;
     }
     
-    if([self.txtDateOfService.text isEqualToString:@""])
-    {
-        UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"WARNING" message:@"Enter Date of Service." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        
-        [errorView show];
-        return;
-    }
-    
     if([self.txtCost.text floatValue] < 1 || [self.txtCost.text floatValue] > 100)
     {
         UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"WARNING" message:@"Cost per kWh is invalid. Enter a value between 1 and 100. (e.g. 26.3)" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -73,9 +69,9 @@
         return;
     }
     
-    if([self.txtDateOfService.text intValue] < 1900 || [self.txtDateOfService.text intValue] > 2050)
+    if(![self.txtDateOfService.text isEqualToString:@""] && ([self.txtDateOfService.text intValue] < 1900 || [self.txtDateOfService.text intValue] > 2050))
     {
-        UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"WARNING" message:@"Date of Service format is incorrect or out of range. Enter 4 digits - YYYY" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"WARNING" message:@"Date of Service format is incorrect or out of range. Enter 4 digits YYYY. If left blank, default value is 1999." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         
         [errorView show];
         return;
@@ -84,12 +80,18 @@
     NSMutableDictionary *dicProjectDetails = [[NSMutableDictionary alloc] init];
     dicProjectDetails[@"projectName"] = self.txtProjectName.text;
     dicProjectDetails[@"cost"] = self.txtCost.text;
-    dicProjectDetails[@"dateOfService"] = self.txtDateOfService.text;
+    if(self.txtDateOfService.text == nil || [self.txtDateOfService.text isEqualToString:@""])
+        dicProjectDetails[@"dateOfService"] = @"1999";
+    else
+        dicProjectDetails[@"dateOfService"] = self.txtDateOfService.text;
     dicProjectDetails[@"contactName"] = self.txtNameOfRep.text;
     dicProjectDetails[@"contactPhone"] = self.txtPhone.text;
     dicProjectDetails[@"contactEmail"] = self.txtEmail.text;
     dicProjectDetails[@"comments"] = self.txtComments.text;
-    
+    if([self.txtDailyUsageHours.text isEqualToString:@""])
+        dicProjectDetails[@"dailyUsageHours"] = @"12";
+    else
+        dicProjectDetails[@"dailyUsageHours"] = self.txtDailyUsageHours.text;
     //Return to Map
     [self.delegate doneMapDetails:dicProjectDetails andStatus:self.isNewProject];
 }
