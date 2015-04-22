@@ -47,7 +47,7 @@
         //Hide Delete button
         [self cell:self.cellDeleteMarker setHidden:YES];
         
-        //Hide PrePopulate Switch if previous marker doesn't exis
+        //Hide PrePopulate Switch if previous marker doesn't exist
         if(self.markerPrevious == NULL)
             [self cell:self.cellPrepopulate setHidden:YES];
     }
