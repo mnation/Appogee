@@ -14,6 +14,8 @@
 #import "SSKeychainQuery.h"
 #import <MessageUI/MessageUI.h>
 #import "Presentation.h"
+#import "MGSwipeButton.h"
+#import "MGSwipeTableCell.h"
 
 @interface ProjectsList : UITableViewController <UIAlertViewDelegate, MFMailComposeViewControllerDelegate>
 
@@ -34,6 +36,6 @@
 @property (strong, nonatomic) NSString *strProjectTitle;
 @property (strong, nonatomic) NSString *strCostPerKWH;
 
-
+@property (strong, nonatomic) UILabel *lblBackgroundMessage;
 
 @end

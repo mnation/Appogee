@@ -17,7 +17,12 @@
 @property (strong, nonatomic) IBOutlet UITextField *txtEmail;
 @property (strong, nonatomic) IBOutlet UITextField *txtPassword;
 
+@property (strong, nonatomic) IBOutlet UIButton *btnLogin;
+
 @property (strong, nonatomic) IBOutlet UIButton *btnRememberMe;
 
 @property (strong, nonatomic) NSMutableArray *testArray;
+
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
 @end

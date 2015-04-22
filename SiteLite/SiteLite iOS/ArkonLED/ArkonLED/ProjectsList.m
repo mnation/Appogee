@@ -34,11 +34,28 @@
     
     self.strAssemblyType = @"ACTIVE";
     
+    self.lblBackgroundMessage = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    
+    self.lblBackgroundMessage.text = @"";
+    self.lblBackgroundMessage.textColor = [UIColor blackColor];
+    self.lblBackgroundMessage.numberOfLines = 0;
+    self.lblBackgroundMessage.textAlignment = NSTextAlignmentCenter;
+    self.lblBackgroundMessage.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+    [self.lblBackgroundMessage sizeToFit];
+    self.tableView.backgroundView = self.lblBackgroundMessage;
+    
     //Hide seperator lines for empty cells
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    [self.refreshControl addTarget:self action:@selector(pullToRefreshStart) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)viewWillAppear:(BOOL)animated
+{
+    [self loadProjects];
+}
+
+- (void)loadProjects
 {
     self.navigationController.toolbarHidden = NO;
     
@@ -54,6 +71,9 @@
     // Now send a request and get Response
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * response, NSData * data,NSError * error)
      {
+         if(self.refreshControl.isRefreshing)
+             [self.refreshControl endRefreshing];
+         
          if(!error)
          {
              NSDictionary *dicServerMessage = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
@@ -124,6 +144,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)pullToRefreshStart
+{
+    [self loadProjects];
+}
+
 - (IBAction)profileBtnClicked:(id)sender
 {
     //Hide nav bar
@@ -168,14 +193,29 @@
 {
     if([self.strAssemblyType isEqualToString:@"ACTIVE"])
     {
+        if(self.activeProjects.count == 0)
+            self.lblBackgroundMessage.text = @"No projects to display";
+        else
+            self.lblBackgroundMessage.text = @"";
+        
         return self.activeProjects.count;
     }
     else if([self.strAssemblyType isEqualToString:@"INACTIVE"])
     {
+        if(self.inactiveProjects.count == 0)
+            self.lblBackgroundMessage.text = @"No projects to display";
+        else
+            self.lblBackgroundMessage.text = @"";
+        
         return self.inactiveProjects.count;
     }
     else if([self.strAssemblyType isEqualToString:@"CLOSED"])
     {
+        if(self.closedProjects.count == 0)
+            self.lblBackgroundMessage.text = @"No projects to display";
+        else
+            self.lblBackgroundMessage.text = @"";
+        
         return self.closedProjects.count;
     }
     //ERROR
@@ -189,7 +229,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    MGSwipeTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     NSDictionary *dicProjectInfo;
     if([self.strAssemblyType isEqualToString:@"ACTIVE"])
@@ -244,11 +285,10 @@
         lblLocation.text = @"";
     }
     
-    UIButton *btnEmail = (UIButton *)[cell viewWithTag:10];
-    if([dicProjectInfo[@"contact_email"] isEqualToString:@""])
-        btnEmail.enabled = NO;
-    else
-        btnEmail.enabled = YES;
+    #if !TEST_USE_MG_DELEGATE
+        cell.leftButtons = [self createLeftButtons];
+        //cell.leftExpansion.fillOnTrigger = NO;
+    #endif
     
     return cell;
 }
@@ -256,6 +296,11 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"DELETE";
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -281,20 +326,21 @@
     {
         NSDictionary *dicProjectInfo;
         // Remove from array
+        NSMutableArray *arrayToBeDeleted;
         if([self.strAssemblyType isEqualToString:@"ACTIVE"])
         {
             dicProjectInfo = [self.activeProjects objectAtIndex:self.indexPathOfCellBeingDeleted.row];
-            [self.activeProjects removeObjectAtIndex:self.indexPathOfCellBeingDeleted.row];
+            arrayToBeDeleted = self.activeProjects;
         }
         else if([self.strAssemblyType isEqualToString:@"INACTIVE"])
         {
             dicProjectInfo = [self.inactiveProjects objectAtIndex:self.indexPathOfCellBeingDeleted.row];
-            [self.inactiveProjects removeObjectAtIndex:self.indexPathOfCellBeingDeleted.row];
+            arrayToBeDeleted = self.inactiveProjects;
         }
         else if([self.strAssemblyType isEqualToString:@"CLOSED"])
         {
             dicProjectInfo = [self.closedProjects objectAtIndex:self.indexPathOfCellBeingDeleted.row];
-            [self.closedProjects removeObjectAtIndex:self.indexPathOfCellBeingDeleted.row];
+            arrayToBeDeleted = self.closedProjects;
         }
         
         NSString *myRequestString = [NSString stringWithFormat:@"projectID=%@&userID=%@", dicProjectInfo[@"project_ID"], [UserInfoGlobal userID]];
@@ -325,7 +371,10 @@
                  }
                  //Delete the cell on tableView
                  else
+                 {
+                     [arrayToBeDeleted removeObjectAtIndex:self.indexPathOfCellBeingDeleted.row];
                      [self.tableView deleteRowsAtIndexPaths:@[self.indexPathOfCellBeingDeleted] withRowAnimation:UITableViewRowAnimationFade];
+                 }
              }
              else
              {
@@ -339,8 +388,86 @@
          }];
     }
 }
+
+- (NSArray *)createLeftButtons
+{
+    NSMutableArray * result = [NSMutableArray array];
+    
+    if(![self.strAssemblyType isEqualToString:@"ACTIVE"])
+    {
+        MGSwipeButton *buttonZero = [MGSwipeButton buttonWithTitle:@"HOT" icon:nil backgroundColor:[UIColor colorWithRed:0.80 green:0.25 blue:0.15 alpha:1.0] padding:15 callback:^BOOL(MGSwipeTableCell *sender){
+            NSIndexPath *path = [self.tableView indexPathForCell:sender];
+            NSMutableArray *projectArray = [self.strAssemblyType isEqualToString:@"INACTIVE"] ? self.inactiveProjects : self.closedProjects;
+            [self updateProjectStatusWithArray:projectArray andStatus:1 andIndexPath:path];
+            return YES;
+        }];
+        [result addObject:buttonZero];
+    }
+    
+    if(![self.strAssemblyType isEqualToString:@"INACTIVE"])
+    {
+        MGSwipeButton *buttonOne = [MGSwipeButton buttonWithTitle:@"COLD" icon:nil backgroundColor:[UIColor colorWithRed:0.62 green:0.77 blue:0.91 alpha:1.0] padding:15 callback:^BOOL(MGSwipeTableCell * sender){
+            NSIndexPath *path = [self.tableView indexPathForCell:sender];
+            NSMutableArray *projectArray = [self.strAssemblyType isEqualToString:@"ACTIVE"] ? self.activeProjects : self.closedProjects;
+            [self updateProjectStatusWithArray:projectArray andStatus:2  andIndexPath:path];
+            return YES;
+        }];
+        [result addObject:buttonOne];
+    }
+    
+    if(![self.strAssemblyType isEqualToString:@"CLOSED"])
+    {
+        MGSwipeButton *buttonTwo = [MGSwipeButton buttonWithTitle:@"CLOSED" icon:nil backgroundColor:[UIColor colorWithRed:0.42 green:0.66 blue:0.31 alpha:1.0] padding:15 callback:^BOOL(MGSwipeTableCell * sender){
+            NSIndexPath *path = [self.tableView indexPathForCell:sender];
+            NSMutableArray *projectArray = [self.strAssemblyType isEqualToString:@"ACTIVE"] ? self.activeProjects : self.inactiveProjects;
+            [self updateProjectStatusWithArray:projectArray andStatus:3  andIndexPath:path];
+            return YES;
+        }];
+        [result addObject:buttonTwo];
+    }
+    
+    return result;
+}
 //TableView Methods DONE*************************************************************************
 
+- (void)updateProjectStatusWithArray:(NSMutableArray *)projectArray andStatus:(NSInteger)status andIndexPath:(NSIndexPath *)path
+{
+    NSDictionary *dic = [projectArray objectAtIndex:path.row];
+    NSNumber *projectID = dic[@"project_ID"];
+    NSString *myRequestString = [NSString stringWithFormat:@"userID=%@&projectID=%@&status=%ld", [UserInfoGlobal userID], projectID, (long)status];
+    
+    NSData *myRequestData = [NSData dataWithBytes:[myRequestString UTF8String] length:[myRequestString length]];
+    NSString *URL = [NSString stringWithFormat:@"%@/iOS/Projects/updateProject.php", [UserInfoGlobal serverURL]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:URL]];
+    [request setHTTPMethod: @"POST"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+    [request setHTTPBody: myRequestData];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * response, NSData * data,NSError * error)
+     {
+         if(!error)
+         {
+             NSDictionary *dicServerMessage = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+             
+             //Update Success
+             if([[dicServerMessage objectForKey:@"success"] isEqualToNumber:@1])
+             {
+                 [projectArray removeObjectAtIndex:path.row];
+                 [self.tableView deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationFade];
+                 [self loadProjects];
+             }
+             else
+             {
+                 UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"WARNING" message:[dicServerMessage objectForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                 [errorView show];
+             }
+         }
+         else
+         {
+             UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"ERROR" message:[NSString stringWithFormat:@"%@", [error localizedDescription]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+             [errorView show];
+         }
+     }];
+}
 
 //Status Types
 - (IBAction)btnActiveClicked:(id)sender
@@ -400,16 +527,21 @@
     MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
     mailComposer.mailComposeDelegate = self;
     
-    //show_email must be 1
-    NSMutableArray *emailAddressesArray = [[NSMutableArray alloc] init];
-    [emailAddressesArray addObject:dicProjectInfo[@"contact_email"]];
-    [mailComposer setToRecipients:emailAddressesArray];
+    if(dicProjectInfo[@"contact_email"])
+    {
+        NSMutableArray *emailAddressesArray = [[NSMutableArray alloc] init];
+        [emailAddressesArray addObject:dicProjectInfo[@"contact_email"]];
+        [mailComposer setToRecipients:emailAddressesArray];
+    }
+    
     [mailComposer setSubject:self.dicEmailClient[@"emailSubject"]];
     
     NSArray* arrayName = [dicProjectInfo[@"contact_name"] componentsSeparatedByString: @" "];
-    NSString *strFirstName = arrayName[0];
+    NSMutableString *strFirstName = [[NSMutableString alloc] initWithString:arrayName[0]];
+    if(![strFirstName isEqualToString:@""])
+        [strFirstName appendString:@",\n\n"];
     
-    NSString *strBody = [NSString stringWithFormat:@"%@,\n\n %@ %@/home/#/client/%@ %@ %@\n%@\n%@", strFirstName, self.dicEmailClient[@"emailBeforeLink"], [UserInfoGlobal serverURL], dicProjectInfo[@"project_ID"], self.dicEmailClient[@"emailAfterLink"], self.dicEmailClient[@"nameSalesPerson"] ,self.dicEmailClient[@"emailSalesPerson"], self.dicEmailClient[@"phoneSalesPerson"]];
+    NSString *strBody = [NSString stringWithFormat:@"%@ %@ %@/home/#/client/%@ %@ %@\n%@\n%@", strFirstName, self.dicEmailClient[@"emailBeforeLink"], [UserInfoGlobal serverURL], dicProjectInfo[@"project_ID"], self.dicEmailClient[@"emailAfterLink"], self.dicEmailClient[@"nameSalesPerson"] ,self.dicEmailClient[@"emailSalesPerson"], self.dicEmailClient[@"phoneSalesPerson"]];
     [mailComposer setMessageBody:strBody isHTML:NO];
     //Opens the view for sending an email
     [self presentViewController:mailComposer animated:YES completion:nil];

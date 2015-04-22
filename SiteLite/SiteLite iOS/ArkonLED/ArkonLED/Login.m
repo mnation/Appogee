@@ -86,6 +86,9 @@
         return;
     }
     
+    [self.activityIndicator startAnimating];
+    self.btnLogin.enabled = NO;
+    
     NSString *myRequestString = [NSString stringWithFormat:@"email=%@&password=%@", self.txtEmail.text, [self calculateSHA:self.txtPassword.text]];
     
     // Create Data from request
@@ -101,6 +104,8 @@
     // Now send a request and get Response
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * response, NSData * data,NSError * error)
      {
+         [self.activityIndicator stopAnimating];
+         self.btnLogin.enabled = YES;
          if(!error)
          {
              NSDictionary *dicServerMessage = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
@@ -119,7 +124,7 @@
                      }
                      
                  }
-                 //Unchecked
+                 //Unchecked /etc/php5/apache2/php.ini
                  else
                  {
                      self.txtEmail.text = @"";

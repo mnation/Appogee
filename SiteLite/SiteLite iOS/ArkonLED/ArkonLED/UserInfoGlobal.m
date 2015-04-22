@@ -10,7 +10,8 @@
 
 static NSString *userID;
 static NSString *userType;
-static NSString *serverURL = @"http://ec2-54-84-156-215.compute-1.amazonaws.com";
+//static NSString *serverURL = @"http://ec2-54-84-156-215.compute-1.amazonaws.com"; //Prod
+static NSString *serverURL = @"http://ec2-52-4-175-61.compute-1.amazonaws.com/"; //Dev
 
 @implementation UserInfoGlobal
 

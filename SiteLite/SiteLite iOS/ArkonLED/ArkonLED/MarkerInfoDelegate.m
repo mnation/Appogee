@@ -67,6 +67,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    if([self isNewMarker])
+        //Set color to red for Shoebox. nil set's icon color to default
+        self.marker.icon = nil;
+}
+
 - (void)loadExistingMarkerDetails
 {
     //Hide Cancel Button and Hide Prepopulate-Switch
@@ -431,8 +438,13 @@
 - (IBAction)assemblyTypeChanged:(id)sender
 {
     if([self lEDFixturesPickerIsShoeBox])
+    {
         //Default to first item when assembly type changes
         self.strSelectedLEDFixtureID = [self.ledFixturesData shoeBoxIDAtIndex:0];
+        
+        //Change marker color to red
+        self.marker.icon = nil;
+    }
     else
     {
         //Default to first item when assembly type changes
@@ -441,6 +453,9 @@
         //Set Number of Heads to 1
         self.txtNumOfHeads.text = @"1";
         self.txtNumOfHeadsProposed.text = @"1";
+        
+        //Change marker color to blue
+        self.marker.icon = [GMSMarker markerImageWithColor:[UIColor blueColor]];
     }
     
     [self.pickerLEDFixtures reloadAllComponents];

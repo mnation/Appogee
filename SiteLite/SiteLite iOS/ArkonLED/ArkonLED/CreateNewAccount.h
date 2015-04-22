@@ -17,6 +17,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *txtEmail;
 @property (strong, nonatomic) IBOutlet UITextField *txtPassword;
 @property (strong, nonatomic) IBOutlet UITextField *txtPasswordConfirm;
+@property (strong, nonatomic) IBOutlet UITextField *txtCompanyName;
 
 
 @end

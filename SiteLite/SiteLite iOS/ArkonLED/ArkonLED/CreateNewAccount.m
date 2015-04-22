@@ -26,6 +26,7 @@
     self.txtEmail.text = @"";
     self.txtPassword.text = @"";
     self.txtPasswordConfirm.text = @"";
+    self.txtCompanyName.text = @"";
     
     self.tableView.rowHeight = 44;
     
@@ -41,60 +42,12 @@
 
 - (IBAction)submitBtnClicked:(id)sender
 {
-    if([self.txtFirstName.text isEqualToString:@""])
-    {
-        UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"WARNING" message:@"Enter First Name." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        
-        [errorView show];
-        return;
-    }
     
-    if([self.txtLastName.text isEqualToString:@""])
-    {
-        UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"WARNING" message:@"Enter Last Name." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        
-        [errorView show];
+    if(![self inputValuesAreValid])
         return;
-    }
-    
-    if([self.txtEmail.text isEqualToString:@""])
-    {
-        UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"WARNING" message:@"Enter Email." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        
-        [errorView show];
-        return;
-    }
-    
-    if([self.txtPassword.text isEqualToString:@""])
-    {
-        UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"WARNING" message:@"Enter Password." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        
-        [errorView show];
-        return;
-    }
-    
-    if([self.txtPasswordConfirm.text isEqualToString:@""])
-    {
-        UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"WARNING" message:@"Confirm Password." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        
-        [errorView show];
-        return;
-    }
-    
-    if(![self.txtPassword.text isEqualToString:self.txtPasswordConfirm.text])
-    {
-        UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"WARNING" message:@"Password and Confirm Password do not match. Please enter again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        
-        [errorView show];
-        
-        self.txtPassword.text = @"";
-        self.txtPasswordConfirm.text = @"";
-        return;
-    }
-    
     
     //Insert new row in database
-    NSString *myRequestString = [NSString stringWithFormat:@"firstName=%@&lastName=%@&email=%@&password=%@", self.txtFirstName.text, self.txtLastName.text, self.txtEmail.text, [self calculateSHA:self.txtPassword.text]];
+    NSString *myRequestString = [NSString stringWithFormat:@"firstName=%@&lastName=%@&email=%@&password=%@&companyName=%@", self.txtFirstName.text, self.txtLastName.text, self.txtEmail.text, [self calculateSHA:self.txtPassword.text], self.txtCompanyName.text];
     
     // Create Data from request
     NSData *myRequestData = [NSData dataWithBytes:[myRequestString UTF8String] length:[myRequestString length]];
@@ -140,6 +93,67 @@
              
          }
      }];
+}
+
+- (BOOL)inputValuesAreValid
+{
+    if([self.txtFirstName.text isEqualToString:@""])
+    {
+        UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"WARNING" message:@"Enter First Name." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [errorView show];
+        
+        return NO;
+    }
+    
+    if([self.txtLastName.text isEqualToString:@""])
+    {
+        UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"WARNING" message:@"Enter Last Name." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [errorView show];
+        
+        return NO;
+    }
+    
+    if([self.txtEmail.text isEqualToString:@""])
+    {
+        UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"WARNING" message:@"Enter Email." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [errorView show];
+        
+        return NO;
+    }
+    
+    if([self.txtPassword.text isEqualToString:@""])
+    {
+        UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"WARNING" message:@"Enter Password." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [errorView show];
+        
+        return NO;
+    }
+    
+    if([self.txtPasswordConfirm.text isEqualToString:@""])
+    {
+        UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"WARNING" message:@"Confirm Password." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [errorView show];
+        
+        return NO;
+    }
+    
+    if(![self.txtPassword.text isEqualToString:self.txtPasswordConfirm.text])
+    {
+        UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"WARNING" message:@"Password and Confirm Password do not match. Please enter again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [errorView show];
+
+        return NO;
+    }
+    
+    if([self.txtCompanyName.text isEqualToString:@""])
+    {
+        UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"WARNING" message:@"Enter Company Name." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [errorView show];
+        
+        return NO;
+    }
+    
+    return YES;
 }
 
 - (NSString *)calculateSHA:(NSString *)yourString

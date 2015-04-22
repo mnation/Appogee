@@ -25,6 +25,8 @@
 		FB61B9EA19BD097900B78993 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = FB61B9E919BD097900B78993 /* Login.m */; };
 		FB61B9EE19BD0AAF00B78993 /* ProjectsList.m in Sources */ = {isa = PBXBuildFile; fileRef = FB61B9ED19BD0AAF00B78993 /* ProjectsList.m */; };
 		FB65D24319C4CB6E005626F1 /* CalculateArea.m in Sources */ = {isa = PBXBuildFile; fileRef = FB65D24219C4CB6E005626F1 /* CalculateArea.m */; };
+		FB73B0F91AD8741500C7C554 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FB73B0F61AD8741500C7C554 /* MGSwipeButton.m */; };
+		FB73B0FA1AD8741500C7C554 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB73B0F81AD8741500C7C554 /* MGSwipeTableCell.m */; };
 		FB75F50019CDBD1800E09DEF /* machine2.png in Resources */ = {isa = PBXBuildFile; fileRef = FB75F4FF19CDBD1800E09DEF /* machine2.png */; };
 		FB75F50619CF601500E09DEF /* MapDetailsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB75F50519CF601500E09DEF /* MapDetailsDelegate.m */; };
 		FB7D593B1AA12DE500F25669 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB7D593A1AA12DE500F25669 /* libOCMock.a */; };
@@ -104,6 +106,10 @@
 		FB61B9ED19BD0AAF00B78993 /* ProjectsList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsList.m; sourceTree = "<group>"; };
 		FB65D24119C4CB6E005626F1 /* CalculateArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculateArea.h; sourceTree = "<group>"; };
 		FB65D24219C4CB6E005626F1 /* CalculateArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculateArea.m; sourceTree = "<group>"; };
+		FB73B0F51AD8741500C7C554 /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeButton.h; sourceTree = "<group>"; };
+		FB73B0F61AD8741500C7C554 /* MGSwipeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeButton.m; sourceTree = "<group>"; };
+		FB73B0F71AD8741500C7C554 /* MGSwipeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeTableCell.h; sourceTree = "<group>"; };
+		FB73B0F81AD8741500C7C554 /* MGSwipeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeTableCell.m; sourceTree = "<group>"; };
 		FB75F4FF19CDBD1800E09DEF /* machine2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = machine2.png; sourceTree = "<group>"; };
 		FB75F50419CF601500E09DEF /* MapDetailsDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapDetailsDelegate.h; sourceTree = "<group>"; };
 		FB75F50519CF601500E09DEF /* MapDetailsDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapDetailsDelegate.m; sourceTree = "<group>"; };
@@ -312,6 +318,17 @@
 			name = Projects;
 			sourceTree = "<group>";
 		};
+		FB73B0F41AD8741500C7C554 /* MGSwipeTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				FB73B0F51AD8741500C7C554 /* MGSwipeButton.h */,
+				FB73B0F61AD8741500C7C554 /* MGSwipeButton.m */,
+				FB73B0F71AD8741500C7C554 /* MGSwipeTableCell.h */,
+				FB73B0F81AD8741500C7C554 /* MGSwipeTableCell.m */,
+			);
+			path = MGSwipeTableCell;
+			sourceTree = "<group>";
+		};
 		FB75F4FE19CDBCF700E09DEF /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,6 +376,7 @@
 		FB9B8E3919E342AC006F376F /* OtherClasses */ = {
 			isa = PBXGroup;
 			children = (
+				FB73B0F41AD8741500C7C554 /* MGSwipeTableCell */,
 				FBA9F59019C24E6C009CED1D /* Hide Cells */,
 				FB9B8E3A19E342D3006F376F /* NSData+Base64.h */,
 				FB9B8E3B19E342D3006F376F /* NSData+Base64.m */,
@@ -476,10 +494,9 @@
 				ORGANIZATIONNAME = ArkonLED;
 				TargetAttributes = {
 					FB61B9AC19BCD8DF00B78993 = {
-						DevelopmentTeam = 52Y82YWKD3;
+						DevelopmentTeam = U56DV5D26H;
 					};
 					FB61B9D019BCD8DF00B78993 = {
-						DevelopmentTeam = 52Y82YWKD3;
 						TestTargetID = FB61B9AC19BCD8DF00B78993;
 					};
 				};
@@ -586,6 +603,8 @@
 				FB9DB40B19BE6B4A00329D67 /* Map.m in Sources */,
 				FBA7FD541A16D7B700B9BB55 /* Presentation.m in Sources */,
 				FBA9F59319C24E8E009CED1D /* StaticDataTableViewController.m in Sources */,
+				FB73B0FA1AD8741500C7C554 /* MGSwipeTableCell.m in Sources */,
+				FB73B0F91AD8741500C7C554 /* MGSwipeButton.m in Sources */,
 				FBFC06251A06A31B00007BBA /* LightPoleLargeImage.m in Sources */,
 				FBA1938219DB622F00608290 /* SSKeychain.m in Sources */,
 				FB61B9C119BCD8DF00B78993 /* AppDelegate.m in Sources */,

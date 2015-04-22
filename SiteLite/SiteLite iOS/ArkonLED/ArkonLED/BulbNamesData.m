@@ -23,9 +23,22 @@
      {
          if(!error)
          {
-             self.bulbTypes = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+             NSDictionary *dicServerMessage = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
              
-             compBlock(YES);
+             if([[dicServerMessage objectForKey:@"success"] isEqualToNumber:@1])
+             {
+                 self.bulbTypes = [dicServerMessage objectForKey:@"legacyFixtures"];
+                 
+                 compBlock(YES);
+             }
+             //Failed
+             else
+             {
+                 UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"WARNING" message:[dicServerMessage objectForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                 [errorView show];
+                 
+                 compBlock(NO);
+             }
          }
          else
          {

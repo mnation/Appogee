@@ -25,7 +25,6 @@
 
 - (void)viewDidLoad
 {
-
     [super viewDidLoad];
     
     self.navigationController.toolbarHidden = YES;
@@ -160,6 +159,11 @@
                          marker.userData = dicMarker;
                          marker.title = [NSString stringWithFormat:@"#%@", [dicPole objectForKey:@"markerNum"]];
                          marker.snippet = @"";
+                         
+                         //If Wallpack, change marker color to blue
+                         if([dicMarker[@"assemblyTypeID"] intValue] == 1)
+                            marker.icon = [GMSMarker markerImageWithColor:[UIColor blueColor]];
+                         
                          //Current
                          if([[dicPole objectForKey:@"poleExist"] intValue] == 1)
                          {
@@ -289,12 +293,6 @@
     }
 }
 
-/*
--(void)mapView:(GMSMapView *)mapView didLongPressAtCoordinate:(CLLocationCoordinate2D)coordinate
-{
-    NSLog(@"Long Press");
-} */
-
 -(void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
     NSLog(@"Tap Map");
@@ -306,6 +304,7 @@
         GMSMarker *marker = [[GMSMarker alloc] init];
         marker.position = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude);
         marker.draggable = YES;
+        marker.icon = [GMSMarker markerImageWithColor:[UIColor blackColor]];
         marker.map = self.mapView_;
         
         self.markerGlobalVar = marker;

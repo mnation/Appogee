@@ -87,7 +87,7 @@
                          marker.position = CLLocationCoordinate2DMake([[dicAreaMarker objectForKey:@"latitude"] doubleValue], [[dicAreaMarker objectForKey:@"longitude"] doubleValue]);
                          marker.draggable = YES;
                          marker.title = @"Delete";
-                         marker.icon = [GMSMarker markerImageWithColor:[UIColor blueColor]];
+                         marker.icon = [GMSMarker markerImageWithColor:[UIColor yellowColor]];
                          marker.map = self.mapView_;
                          
                          [self.rect addCoordinate:marker.position];
@@ -308,7 +308,7 @@
         marker.position = CLLocationCoordinate2DMake([[NSString stringWithFormat:@"%.6f", coordinate.latitude] doubleValue], [[NSString stringWithFormat:@"%.6f", coordinate.longitude] doubleValue]);
         marker.draggable = YES;
         marker.title = @"Delete";
-        marker.icon = [GMSMarker markerImageWithColor:[UIColor blueColor]];
+        marker.icon = [GMSMarker markerImageWithColor:[UIColor yellowColor]];
         marker.map = self.mapView_;
         
         [self.arrayAreaMarkers addObject:marker];
